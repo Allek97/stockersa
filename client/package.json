@@ -1,0 +1,80 @@
+{
+    "name": "stockersa",
+    "version": "0.1.0",
+    "description": "simple tool to track stock prices",
+    "private": true,
+    "dependencies": {
+        "@pmndrs/branding": "0.0.7",
+        "@reach/combobox": "^0.15.0",
+        "@react-google-maps/api": "^2.1.1",
+        "@react-three/drei": "^4.1.8",
+        "@react-three/fiber": "^6.0.16",
+        "@testing-library/jest-dom": "^5.11.10",
+        "@testing-library/react": "^11.2.6",
+        "@testing-library/user-event": "^12.8.3",
+        "axios": "^0.21.1",
+        "d3": "^4.0.0",
+        "date-fns": "^2.22.1",
+        "dotenv": "^8.2.0",
+        "eslint": "^7.23.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-react": "^7.23.1",
+        "google-map-react": "^2.1.9",
+        "node-sass": "^5.0.0",
+        "prop-types": "^15.7.2",
+        "react": "^17.0.2",
+        "react-cool-onclickoutside": "^1.6.1",
+        "react-dom": "^17.0.2",
+        "react-google-maps": "^9.4.5",
+        "react-places-autocomplete": "^7.3.0",
+        "react-query": "^3.16.1",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "4.0.3",
+        "recharts": "^2.0.9",
+        "stripe": "^8.150.0",
+        "styled-components": "^5.2.3",
+        "three": "^0.127.0",
+        "topojson": "^3.0.2",
+        "use-places-autocomplete": "^1.9.1",
+        "use-tweaks": "^0.3.1",
+        "uuid": "^8.3.2",
+        "web-vitals": "^1.1.1"
+    },
+    "scripts": {
+        "start": "SET PORT=4000 && react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+        "eslint-config-prettier": "^8.1.0",
+        "eslint-plugin-html": "^6.1.2",
+        "eslint-plugin-prettier": "^3.3.1",
+        "mongoose": "^5.12.7",
+        "postinstall-postinstall": "^2.1.0",
+        "prettier": "^2.2.1"
+    },
+    "proxy": "http://localhost:4000"
+}

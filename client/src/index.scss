@@ -1,0 +1,135 @@
+// body {
+//   margin: 0;
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+//     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+//     sans-serif;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
+
+// code {
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+//     monospace;
+// }
+
+// NOTE: Colors from old projects
+
+@import "./assets/fonts/global-fonts.scss";
+
+:root {
+    // See abstract file "_variables.scss" for true colors
+
+    --color-primary-light: 68, 94, 182;
+    --color-primary-dark: 9, 8, 75;
+
+    --color-main-1: 2, 15, 31;
+    --color-main-2: 15, 13, 46;
+
+    --color-secondary-light: 255, 185, 0;
+    --color-secondary-dark: 255, 119, 48;
+
+    --color-tertiary-light: 41, 152, 255;
+    --color-tertiary-dark: 86, 67, 250;
+
+    --color-quaternary: 85, 197, 122;
+    --color-quaternary-light: 126, 213, 111;
+    --color-quaternary-dark: 40, 180, 133;
+
+    --color-grey-light-1: 247, 247, 247;
+    --color-grey-light-2: 238, 238, 238;
+
+    --color-grey-dark: 119, 119, 119;
+    --color-grey-dark-2: 153, 153, 153;
+    --color-grey-dark-3: 51, 51, 51;
+
+    --color-green-special: 59, 200, 141;
+    --color-blue-special: 26, 94, 243;
+
+    --color-gold: 224, 176, 17;
+
+    --color-white: #fff;
+    --color-black: #000;
+
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.6);
+
+    // height: 100vh !important;
+    // overflow-x: auto !important;
+
+    --excursion-clip-height: 9vw;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%; // 1rem = 10px
+
+    //Fix the disgusting bookmark in chrome
+    // @media screen and (min-height: 930px) and (max-height: 950px) {
+    //     font-size: 60.4%;
+    // }
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 8rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        //#226f91;
+        //  -webkit-border-radius: 10px;
+        //  border-radius: 10px;
+        background-color: rgba(var(--color-blue-special), 1);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        border-radius: 8rem;
+    }
+
+    &::-webkit-scrollbar-thumb:window-inactive {
+        background-color: rgba(var(--color-blue-special), 1);
+    }
+
+    // -webkit-font-smoothing: antialiased;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+// NOTE: https://github.com/recharts/recharts/issues/861
+/* hiding first and last lines in cartesian grid */
+.recharts-wrapper .recharts-cartesian-grid-horizontal line:first-child,
+// BUG: I have 8 ticks and for some reason first and last child refer to the same tick aka first tick
+.recharts-wrapper .recharts-cartesian-grid-horizontal line:nth-child(8),
+.recharts-wrapper .recharts-cartesian-grid-horizontal line:last-child {
+    stroke-opacity: 0;
+}
+
+.recharts-layer .recharts-cartesian-axis-tick:last-child text {
+    display: none;
+}
+// .recharts-x-axis .recharts-cartesian-axis-tick:last-child text {
+//     font-size: 0;
+// }

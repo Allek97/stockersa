@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 import {
     ResponsiveContainer,
@@ -13,160 +14,196 @@ import {
     Bar,
 } from "recharts";
 
-// import { getDailyStockForSymbol } from "../../utils/StockApiConnectorAlphaVintage";
-import { stockDataMock } from "../../dev-data/stockDataMock";
-
 import {
     CustomToolTip,
     DateToolTip,
     VolumeToolTip,
 } from "./style/ToolTipStyle";
 
-export default function Graph() {
+// NOTE: FUNCTIONS
+
+// import { getDailyStockForSymbol } from "../../utils/StockApiConnectorAlphaVintage";
+import { getDailyStockForSymbolTiingo } from "../../utils/StockApiConnectorTiingo";
+// import { stockDataMock } from "../../dev-data/stockDataMock";
+
+import { getPastDate, formatDate } from "../../utils/DateFunctions";
+import { getMonth, getFormattedDate, numberWithCommas } from "./UtilFunctions";
+
+export default function Graph(props) {
+    const {
+        dataPeriod,
+        isTiingoApiConsumed,
+        setIsTiingoApiConsumed,
+        ticker,
+        setStartClose,
+        setLastClose,
+        setLastDate,
+    } = props;
+
     const [stockData, setStockData] = useState([]);
 
+    function handleTiingoApiCall(symbol, period) {
+        const frequency = dataPeriod === "5Y" ? "weekly" : "daily";
+        const res = getDailyStockForSymbolTiingo(
+            symbol,
+            getPastDate(period),
+            formatDate(new Date()),
+            frequency
+        );
+
+        return res;
+    }
+
+    // Tiingo api
     useEffect(async () => {
-        // NOTE: Limit of 5 requests/minute, 500 req/day => use mock data
-
-        // const res = await getDailyStockForSymbol("TSLA");
-        // const stockDataFormated = formatStockData(
-        //     res.data["Time Series (Daily)"]
-        // );
-
-        // console.log(JSON.stringify(stockDataFormated.reverse()));
-
-        setStockData(stockDataMock);
-    }, []);
+        try {
+            const res = await handleTiingoApiCall(ticker, dataPeriod);
+            const { data } = res;
+            console.log(data);
+            if (res.statusText === "OK" && data.length > 0) {
+                setStockData(data);
+                setIsTiingoApiConsumed(true);
+                setStartClose(data[0].close);
+                setLastClose(data[data.length - 1].close);
+                setLastDate(formatDate(data[data.length - 1].date));
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }, [ticker, dataPeriod]);
 
     return (
-        <div>
-            <ResponsiveContainer width="100%" height={700}>
-                <AreaChart
-                    data={stockData}
-                    syncId="anyId"
-                    style={{ cursor: "pointer" }}
-                >
-                    <defs>
-                        <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                            <stop
-                                offset="0%"
-                                stopColor="#2451B7"
-                                stopOpacity={0.4}
-                            />
-                            <stop
-                                offset="75%"
-                                stopColor="#2451B7"
-                                stopOpacity={0.05}
-                            />
-                        </linearGradient>
-                    </defs>
+        <>
+            {isTiingoApiConsumed && (
+                <>
+                    <div>
+                        <ResponsiveContainer width="100%" height={700}>
+                            <AreaChart
+                                data={stockData}
+                                syncId="anyId"
+                                style={{ cursor: "pointer" }}
+                            >
+                                <defs>
+                                    <linearGradient
+                                        id="color"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1"
+                                    >
+                                        <stop
+                                            offset="0%"
+                                            stopColor="#2451B7"
+                                            stopOpacity={0.4}
+                                        />
+                                        <stop
+                                            offset="75%"
+                                            stopColor="#2451B7"
+                                            stopOpacity={0.05}
+                                        />
+                                    </linearGradient>
+                                </defs>
 
-                    <Area
-                        dataKey="close"
-                        stroke="#2451B7"
-                        fill="url(#color)"
-                        tickFormatter={(value) => `$${value.toFixed(2)}`}
-                    />
-                    <XAxis
-                        dataKey="date"
-                        tickLine={false}
-                        axisLine={false}
-                        tickFormatter={(str, idx) => {
-                            // On s'en fout de l'an
-                            const day = parseInt(str.split("-")[2], 10);
-                            const month = getMonth(
-                                parseInt(str.split("-")[1], 10)
-                            ).substr(0, 3);
+                                <Area
+                                    dataKey="close"
+                                    stroke="#2451B7"
+                                    fill="url(#color)"
+                                    tickFormatter={(value) =>
+                                        `$${value.toFixed(2)}`
+                                    }
+                                />
+                                <XAxis
+                                    dataKey="date"
+                                    tickLine={false}
+                                    axisLine={false}
+                                    tickFormatter={(str, idx) => {
+                                        // On s'en fout de l'an
 
-                            if (idx % 7 === 0) {
-                                const date = month.concat(`, ${day}`);
-                                return date;
-                            }
-                            return "";
-                        }}
-                        fontWeight={900}
-                        fontSize="1.3rem"
-                        interval="preserveStart"
-                    />
-                    <YAxis
-                        dataKey="close"
-                        axisLine={false}
-                        tickLine={false}
-                        tickCount={8}
-                        tickFormatter={(number, idx) => {
-                            if (idx === 0) return "";
-                            return `$${number.toFixed(2)}`;
-                        }}
-                        domain={["auto", "auto"]}
-                        padding={{ bottom: 20 }}
-                        fontWeight={900}
-                        fontSize="1.3rem"
-                    />
-                    <Tooltip content={<CustomizedToolTip />} />
-                    <CartesianGrid opacity={0.1} vertical={false} />
-                </AreaChart>
-            </ResponsiveContainer>
+                                        str = str.split("T")[0];
 
-            <ResponsiveContainer width="100%" height={150}>
-                <BarChart
-                    width={730}
-                    height={250}
-                    margin={{ left: 70 }}
-                    data={stockData}
-                    syncId="anyId"
-                >
-                    <Bar dataKey="volume" fill="#202b51" />
-                    {/* <rect
-                        x={x}
-                        y={y}
-                        width="2"
-                        height="95"
-                        stroke="none"
-                        fill="#3366cc"
-                        z-index="0"
-                    /> */}
-                    <XAxis tickCount={0} tickLine={false} tick={false} />
-                    <Tooltip
-                        content={<Zeb />}
-                        cursor={{ fill: "rgba(255,255,255,.01)" }}
-                        // viewBox={{ x: 0, y: 0, width: 0, height: 0 }}
-                    />
-                </BarChart>
-            </ResponsiveContainer>
-        </div>
+                                        const day = parseInt(
+                                            str.split("-")[2],
+                                            10
+                                        );
+                                        const month = getMonth(
+                                            parseInt(str.split("-")[1], 10)
+                                        ).substr(0, 3);
+
+                                        if (idx % 7 === 0) {
+                                            const date = month.concat(
+                                                `, ${day}`
+                                            );
+                                            return date;
+                                        }
+                                        return "";
+                                    }}
+                                    minTickGap={10}
+                                    fontWeight={900}
+                                    fontSize="1.3rem"
+                                    interval="preserveStartEnd"
+                                />
+                                <YAxis
+                                    dataKey="close"
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tickCount={8}
+                                    tickFormatter={(number, idx) => {
+                                        if (idx === 0) return "";
+                                        return `$${number.toFixed(2)}`;
+                                    }}
+                                    domain={["auto", "auto"]}
+                                    padding={{ bottom: 20 }}
+                                    fontWeight={900}
+                                    fontSize="1.3rem"
+                                />
+                                <Tooltip content={<CustomizedToolTip />} />
+                                <CartesianGrid opacity={0.1} vertical={false} />
+                            </AreaChart>
+                        </ResponsiveContainer>
+
+                        <ResponsiveContainer width="100%" height={150}>
+                            <BarChart
+                                width={730}
+                                height={250}
+                                margin={{ left: 70 }}
+                                data={stockData}
+                                syncId="anyId"
+                            >
+                                <Bar dataKey="volume" fill="#142d69" />
+                                <XAxis
+                                    tickCount={0}
+                                    tickLine={false}
+                                    tick={false}
+                                />
+                                <Tooltip
+                                    content={<EmptyContent />}
+                                    cursor={{
+                                        fill: "rgba(255,255,255,.04)",
+                                    }}
+                                    // viewBox={{ x: 0, y: 0, width: 0, height: 0 }}
+                                />
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                </>
+            )}
+        </>
     );
 }
 
-const Zeb = () => {
+const EmptyContent = () => {
     return <div>{}</div>;
 };
 
-// NOTE: le format est mauvais
-const formatStockData = (stockData) => {
-    return Object.entries(stockData).map((entries) => {
-        const [date, priceData] = entries;
-
-        return {
-            date,
-            open: Number(priceData["1. open"]),
-            high: Number(priceData["2. high"]),
-            low: Number(priceData["3. low"]),
-            close: Number(priceData["4. close"]),
-            volume: Number(priceData["5. volume"]),
-        };
-    });
-};
-//
-
 const CustomizedToolTip = ({ active, payload, label }) => {
-    if (active) {
+    if (active && payload !== null) {
         return (
             <CustomToolTip>
                 <DateToolTip>{getFormattedDate(label)}</DateToolTip>
                 <p>
                     Closed:{" "}
                     <span style={{ color: "white" }}>
-                        ${payload[0].payload.close}
+                        {payload[0].payload.close}
                     </span>{" "}
                     <span style={{ fontSize: "1.3rem", color: "white" }}>
                         USD
@@ -178,62 +215,20 @@ const CustomizedToolTip = ({ active, payload, label }) => {
             </CustomToolTip>
         );
     }
+
     return null;
 };
 
-const getMonth = (num) => {
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-
-    const selectedMonthName = months[num - 1];
-
-    return selectedMonthName;
+Graph.propTypes = {
+    dataPeriod: PropTypes.string,
+    isTiingoApiConsumed: PropTypes.bool.isRequired,
+    setIsTiingoApiConsumed: PropTypes.func.isRequired,
+    setStartClose: PropTypes.func.isRequired,
+    setLastClose: PropTypes.func.isRequired,
+    setLastDate: PropTypes.func.isRequired,
+    ticker: PropTypes.string.isRequired,
 };
 
-const getDayFromDate = (date) => {
-    //date: year-month-day
-    const days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-    ];
-    const d = new Date(date);
-
-    return days[d.getUTCDay()];
+Graph.defaultProps = {
+    dataPeriod: "1Y",
 };
-const getFormattedDate = (date) => {
-    // NOTE
-    // date : year-month-day
-    // return Sunday 16 May, 2021
-
-    const year = date.split("-")[0];
-    const monthNb = date.split("-")[1];
-    const dayNb = date.split("-")[2];
-
-    const day = getDayFromDate(date);
-    const month = getMonth(monthNb);
-
-    const formattededDate = `${day} ${dayNb} ${month}, ${year}`;
-
-    return formattededDate;
-};
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}

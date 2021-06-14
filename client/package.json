@@ -1,7 +1,7 @@
 {
     "name": "stockersa",
     "version": "0.1.0",
-    "description": "simple tool to track stock prices",
+    "description": "simple tool to track stock prices and more",
     "private": true,
     "dependencies": {
         "@pmndrs/branding": "0.0.7",

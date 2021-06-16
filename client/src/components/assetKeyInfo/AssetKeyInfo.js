@@ -1,149 +1,320 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-const InfoContainer = styled.div`
-    padding: 2rem;
-    /* padding-bottom: 10rem; // NOTE: remove */
-    width: 40rem;
+import {
+    getAssetInfoFMP,
+    getAssetQuoteFMP,
+} from "../../utils/StockApiConnectorFMP";
+import { nFormatter, convertCodeCountry } from "../../utils/UtilFunctions";
 
-    border-radius: 2em;
+import {
+    InfoContainer,
+    InfoRow,
+    KeyInfo,
+    Title,
+    LinkInfo,
+} from "./style/AssetKeyInfoStyle";
 
-    box-shadow: var(--shadow-dark);
+export default function AssetKeyInfo(props) {
+    const { ticker } = props;
 
-    margin-left: auto;
+    const [isInfoApiConsumed, setIsInfoApiConsumed] = useState(false);
+    const [isQuoteApiConsumed, setIsQuoteApiConsumed] = useState(false);
+    const [assetInfo, setAssetInfo] = useState([]);
+    const [assetQuote, setAssetQuote] = useState([]);
 
-    border: 1px solid #142d69;
+    function rangeFormat(range) {
+        if (range) {
+            const p1 = parseFloat(range.split("-")[0]).toFixed(2);
+            const p2 = parseFloat(range.split("-")[1]).toFixed(2);
+            return `$${p1} - $${p2}`;
+        }
 
-    /* background-color: #142d69; */
-`;
+        return `N/A`;
+    }
 
-const Title = styled.h1`
-    font-size: 2.1rem;
-    font-weight: 400;
-    letter-spacing: 0;
+    useEffect(() => {
+        async function fetchMyApi() {
+            try {
+                const res = await getAssetInfoFMP(ticker);
 
-    color: white;
-    margin-bottom: 1.2rem;
-    margin-top: 0;
-`;
-const InfoRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+                const { status, data } = res;
+                console.log(res);
+                if (status === 200) {
+                    setAssetInfo(data[0]);
+                }
+                setIsInfoApiConsumed(true);
+            } catch (err) {
+                console.log(err);
+            }
+        }
 
-    border-top: 1px solid #43434d;
-    padding: 1rem 0;
-    min-height: 4.3rem;
+        fetchMyApi();
 
-    font-size: 1.45rem;
-    font-weight: 400;
-    text-transform: capitalize;
+        return () => {
+            setAssetInfo([]);
+            setIsInfoApiConsumed(false);
+        };
+    }, [ticker]);
 
-    color: white;
-`;
+    useEffect(() => {
+        async function fetchMyApi() {
+            try {
+                const res = await getAssetQuoteFMP(ticker);
 
-const KeyInfo = styled.span`
-    color: #a5a5b1;
-    border-bottom: 1px dashed #858b94;
-    line-height: 1.8rem;
+                const { status, data } = res;
+                // console.log(res);
+                if (status === 200) {
+                    setAssetQuote(data[0]);
+                }
+                setIsQuoteApiConsumed(true);
+            } catch (err) {
+                console.log(err);
+            }
+        }
 
-    cursor: pointer;
-`;
+        fetchMyApi();
 
-export default function AssetKeyInfo() {
+        return () => {
+            setAssetQuote([]);
+            setIsQuoteApiConsumed(false);
+        };
+    }, [ticker]);
+
+    function teriaryAssetInfo(field) {
+        if (assetInfo) {
+            if (
+                assetInfo[`${field}`] !== null &&
+                assetInfo[`${field}`] !== "" &&
+                assetInfo[`${field}`]
+            ) {
+                return "Valid";
+            }
+        }
+
+        return "N/A";
+    }
+
+    function teriaryAssetQuote(field) {
+        if (assetQuote) {
+            if (
+                assetQuote[`${field}`] !== null &&
+                assetQuote[`${field}`] !== ""
+            ) {
+                return "Valid";
+            }
+        }
+
+        return "N/A";
+    }
+
     return (
-        <div>
-            <InfoContainer style={{ marginBottom: "2rem" }}>
-                <Title>Key stats</Title>
-                <InfoRow>
-                    <KeyInfo>previous close</KeyInfo>
-                    <span>$145.66</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>day range</KeyInfo>
-                    <span>$256.61 - $258.49</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>year range</KeyInfo>
-                    <span>$184.01 - $263.19</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>market cap</KeyInfo>
-                    <span>1.94T USD</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>volume</KeyInfo>
-                    <span>24.93M</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>P/E ratio</KeyInfo>
-                    <span>35.10</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>divident yield</KeyInfo>
-                    <span>0.87%</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>primary exchange</KeyInfo>
-                    <span>NASDAQ</span>
-                </InfoRow>
-            </InfoContainer>
+        <>
+            {isInfoApiConsumed && isQuoteApiConsumed && (
+                <div>
+                    <InfoContainer style={{ marginBottom: "5rem" }}>
+                        <Title>Key stats</Title>
 
-            <InfoContainer>
-                <Title>Description</Title>
-                <InfoRow>
-                    <span style={{ fontSize: "1.2rem" }}>
-                        Microsoft Corporation is an American multinational
-                        technology company which produces computer software,
-                        consumer electronics, personal computers, and related
-                        services. Its best known software products are the
-                        Microsoft Windows line of operating systems, the
-                        Microsoft Office suite, and the Internet Explorer and
-                        Edge web browsers. Its flagship hardware products are
-                        the Xbox video game consoles and the Microsoft Surface
-                        lineup of touchscreen personal computers. Microsoft
-                        ranked No. 21 in the 2020 Fortune 500 rankings of the
-                        largest United States corporations by total revenue; it
-                        was the world's largest software maker by revenue as of
-                        2016. It is considered one of the Big Five companies in
-                        the U.S. information technology industry, along with
-                        Google, Apple, Amazon, and Facebook. Microsoft was
-                        founded by Bill Gates and Paul Allen on April 4, 1975,
-                        to develop and sell BASIC interpreters for the Altair
-                        8800. It rose to dominate the personal computer
-                        operating system market with MS-DOS in the mid-1980s,
-                        followed by Microsoft Windows.
-                    </span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>day range</KeyInfo>
-                    <span>$256.61 - $258.49</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>year range</KeyInfo>
-                    <span>$184.01 - $263.19</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>market cap</KeyInfo>
-                    <span>1.94T USD</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>volume</KeyInfo>
-                    <span>24.93M</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>P/E ratio</KeyInfo>
-                    <span>35.10</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>divident yield</KeyInfo>
-                    <span>0.87%</span>
-                </InfoRow>
-                <InfoRow>
-                    <KeyInfo>primary exchange</KeyInfo>
-                    <span>NASDAQ</span>
-                </InfoRow>
-            </InfoContainer>
-        </div>
+                        <InfoRow>
+                            <KeyInfo>previous close</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("previousClose") === "Valid"
+                                    ? `$${assetQuote.previousClose.toFixed(2)}`
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>year range</KeyInfo>
+                            <span>
+                                {teriaryAssetInfo("range") === "Valid"
+                                    ? rangeFormat(assetInfo.range)
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>day low</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("dayLow") === "Valid"
+                                    ? `$${assetQuote.dayLow.toFixed(2)}`
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>day high</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("dayHigh") === "Valid"
+                                    ? `$${assetQuote.dayHigh.toFixed(2)}`
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>market cap</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("marketCap") === "Valid"
+                                    ? `${nFormatter(
+                                          assetQuote.marketCap,
+                                          2
+                                      )} USD`
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>average volume</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("avgVolume") === "Valid"
+                                    ? nFormatter(assetQuote.avgVolume, 2)
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>P/E ratio</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("pe") === "Valid"
+                                    ? assetQuote.pe.toFixed(2)
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>earnings per share (eps)</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("eps") === "Valid"
+                                    ? `${assetQuote.eps.toFixed(2)}$`
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo>primary exchange</KeyInfo>
+                            <span>
+                                {teriaryAssetQuote("exchange") === "Valid"
+                                    ? assetQuote.exchange
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                    </InfoContainer>
+
+                    <InfoContainer>
+                        <Title>Description</Title>
+                        <InfoRow>
+                            <span style={{ fontSize: "1.3rem" }}>
+                                {teriaryAssetInfo("description") === "Valid"
+                                    ? assetInfo.description
+                                    : "N/A"}{" "}
+                                {teriaryAssetInfo("description") ===
+                                    "Valid" && (
+                                    <LinkInfo
+                                        style={{
+                                            fontSize: "1.4rem",
+                                            fontWeight: "400",
+                                            color: "#4287e9",
+                                        }}
+                                        target="_blank"
+                                        href={`https://en.wikipedia.org/wiki/${assetInfo.companyName}`}
+                                    >
+                                        Wikipedia
+                                    </LinkInfo>
+                                )}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                CEO
+                            </KeyInfo>
+                            {teriaryAssetInfo("ceo") === "Valid" ? (
+                                <LinkInfo
+                                    target="_blank"
+                                    href={`https://www.google.com/search?q=${assetInfo.ceo}&hl=en-GB`}
+                                >
+                                    {assetInfo.ceo}
+                                </LinkInfo>
+                            ) : (
+                                "N/A"
+                            )}
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                IPO Date
+                            </KeyInfo>
+                            <span>
+                                {teriaryAssetInfo("ipoDate") === "Valid"
+                                    ? assetInfo.ipoDate
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                headquarters
+                            </KeyInfo>
+                            {teriaryAssetInfo("address") === "Valid" &&
+                            teriaryAssetInfo("city") === "Valid" &&
+                            teriaryAssetInfo("state") === "Valid" ? (
+                                <LinkInfo
+                                    target="_blank"
+                                    href={`https://www.google.com/maps/place/${assetInfo.address},${assetInfo.city},${assetInfo.state},`}
+                                >
+                                    {assetInfo.address}
+                                    <br />
+                                    {assetInfo.city.toLowerCase()},{" "}
+                                    {assetInfo.state.toLowerCase()}
+                                    <br />
+                                    {convertCodeCountry(
+                                        assetInfo.country.toUpperCase()
+                                    )}
+                                </LinkInfo>
+                            ) : (
+                                "N/A"
+                            )}
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                industry
+                            </KeyInfo>
+                            <span>
+                                {teriaryAssetInfo("industry") === "Valid"
+                                    ? assetInfo.industry
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                sector
+                            </KeyInfo>
+                            <span>
+                                {teriaryAssetInfo("sector") === "Valid"
+                                    ? assetInfo.sector
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                website
+                            </KeyInfo>
+                            {teriaryAssetInfo("website") === "Valid" && (
+                                <LinkInfo
+                                    style={{ textTransform: "none" }}
+                                    href={`${assetInfo.website}`}
+                                >
+                                    {assetInfo.website}
+                                </LinkInfo>
+                            )}
+                        </InfoRow>
+                        <InfoRow>
+                            <KeyInfo style={{ borderBottom: "none" }}>
+                                full time employees
+                            </KeyInfo>
+                            <span>
+                                {teriaryAssetInfo("fullTimeEmployees") ===
+                                "Valid"
+                                    ? assetInfo.fullTimeEmployees
+                                    : "N/A"}
+                            </span>
+                        </InfoRow>
+                    </InfoContainer>
+                </div>
+            )}
+        </>
     );
 }
+
+AssetKeyInfo.propTypes = {
+    ticker: PropTypes.string.isRequired,
+};

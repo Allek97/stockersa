@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+//TODOTODOTODOTODOTODOTODOTODOTODOTODO
+//TODOTODOTODOTODOTODOTODOTODOTODOTODO
+//TODOTODOTODOTODOTODOTODOTODOTODOTODO
+//TODOTODOTODOTODOTODOTODOTODOTODOTODO
+// FIX THE API CONSUMPTION AND APP LOADING AND ASSETFINANCE
+
 export const StockPeriodBtn = styled.a`
     &,
     &:link,

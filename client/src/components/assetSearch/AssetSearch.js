@@ -25,22 +25,25 @@ export default function AssetSearch(props) {
         setQuerySearch("");
     };
 
-    useEffect(async () => {
-        try {
-            if (querySearch.length !== 0) {
-                const res = await searchAssetTiingo(querySearch, "50");
-                console.log(res);
-                if (res.statusText === "OK") {
-                    if (querySearch.length > 0) {
-                        setResults(res.data);
-                    } else {
-                        setResults([]);
+    useEffect(() => {
+        async function fetchMyApi() {
+            try {
+                if (querySearch.length !== 0) {
+                    const res = await searchAssetTiingo(querySearch, "50");
+                    // console.log(res);
+                    if (res.statusText === "OK") {
+                        if (querySearch.length > 0) {
+                            setResults(res.data);
+                        } else {
+                            setResults([]);
+                        }
                     }
                 }
+            } catch (err) {
+                console.log(err);
             }
-        } catch (err) {
-            console.log(err);
         }
+        fetchMyApi();
     }, [querySearch]);
 
     return (

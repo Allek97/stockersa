@@ -1,3 +1,5 @@
+import { isoCountries } from "../dev-data/isoCountries";
+
 export const getMonth = (num) => {
     const months = [
         "January",
@@ -61,9 +63,31 @@ export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export function nFormatter(num, digits) {
+    const lookup = [
+        { value: 1, symbol: "" },
+        { value: 1e3, symbol: "k" },
+        { value: 1e6, symbol: "M" },
+        { value: 1e9, symbol: "B" },
+        { value: 1e12, symbol: "T" },
+        { value: 1e15, symbol: "P" },
+        { value: 1e18, symbol: "E" },
+    ];
+    const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    const item = lookup
+        .slice()
+        .reverse()
+        .find(function (element) {
+            return num >= element.value;
+        });
+    return item
+        ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
+        : "0";
+}
+
 //////////////////////////////////////////////////////////////
-// NOTE: le format est mauvais
-const formatStockDataAlphaVantage = (stockData) => {
+// NOTE: le format est mauvais dans alpha vantage
+export const formatStockDataAlphaVantage = (stockData) => {
     return Object.entries(stockData).map((entries) => {
         const [date, priceData] = entries;
 
@@ -77,3 +101,13 @@ const formatStockDataAlphaVantage = (stockData) => {
         };
     });
 };
+
+//////////////////////////////////////////////////////////
+// NOTE: Convert country code to country name
+
+export function convertCodeCountry(countryCode) {
+    if (Object.keys(isoCountries).includes(countryCode)) {
+        return isoCountries[countryCode];
+    }
+    return countryCode;
+}

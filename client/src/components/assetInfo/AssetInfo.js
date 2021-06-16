@@ -7,7 +7,7 @@ import {
     RawChange,
     LastClose,
     CompanyLogo,
-} from "./style/AssetKeyInfoStyle";
+} from "./style/AssetInfoStyle";
 
 import { dateLastRefresh } from "../../utils/DateFunctions";
 import { searchAssetInfoTiingo } from "../../utils/StockApiConnectorTiingo";
@@ -21,7 +21,7 @@ export default function AssetInfo({
 }) {
     const [assetName, setAssetName] = useState("");
     const [assetEC, setAssetEC] = useState("");
-    const [assetDescription, setAssetDescription] = useState("");
+    const [isApiConsumed, setIsApiConsumed] = useState(false);
 
     const getStockIncreaseRate = (p1, p2) => {
         let rate = 0;
@@ -72,70 +72,87 @@ export default function AssetInfo({
     const { rate, change, state } = getStockIncreaseRate(startClose, lastClose);
     const periodIndicator = getPeriodIndicator(dataPeriod);
 
-    useEffect(async () => {
-        try {
-            const res = await searchAssetInfoTiingo(ticker);
-            const { name, exchangeCode, description } = res.data;
-            if (res.statusText === "OK") {
-                setAssetName(name);
-                setAssetEC(exchangeCode);
-                setAssetDescription(description);
+    useEffect(() => {
+        async function fetchMyApi() {
+            try {
+                const res = await searchAssetInfoTiingo(ticker);
+                const { name, exchangeCode } = res.data;
+                if (res.statusText === "OK" && name && exchangeCode) {
+                    console.log(res);
+                    setAssetName(name);
+                    setAssetEC(exchangeCode);
+                    setIsApiConsumed(true);
+                }
+            } catch (err) {
+                console.log(err);
             }
-        } catch (err) {
-            console.log(err);
         }
+        fetchMyApi();
+
+        return () => {
+            setAssetName("");
+            setAssetEC("");
+            setIsApiConsumed(false);
+        };
     }, [ticker]);
 
-    return (
-        <div style={{ transition: "all 1s" }}>
-            <div style={{ display: "flex" }}>
-                <h1
-                    style={{
-                        marginRight: "5rem",
-                        fontSize: "2.4rem",
-                        fontWeight: "400",
-                        letterSpacing: "0",
-                        lineHeight: "3.2rem",
-                        color: "white",
-                    }}
-                >
-                    {assetName}.
-                </h1>
-                <StockSymbol state={state}>{ticker}</StockSymbol>
-            </div>
+    console.log(isApiConsumed);
 
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "flex-end",
-                }}
-            >
-                <span
-                    style={{
-                        fontSize: "4.4rem",
-                        fontWeight: "400",
-                        letterSpacing: "0",
-                        lineHeight: "5.2rem",
-                        color: "white",
-                    }}
-                >
-                    ${lastClose}
-                </span>
-                <RateChange state={state}>{rate}%</RateChange>
-                <RawChange state={state}>
-                    {state === "increase" ? "+" : "-"}
-                    {change} {periodIndicator}
-                </RawChange>
-            </div>
-            {/* <CompanyLogo
+    return (
+        <>
+            {isApiConsumed && (
+                <div style={{ transition: "all 1s" }}>
+                    <div style={{ display: "flex" }}>
+                        <h1
+                            style={{
+                                marginRight: "5rem",
+                                fontSize: "2.4rem",
+                                fontWeight: "400",
+                                letterSpacing: "0",
+                                lineHeight: "3.2rem",
+                                color: "white",
+                            }}
+                        >
+                            {assetName}.
+                        </h1>
+                        <StockSymbol state={state}>{ticker}</StockSymbol>
+                    </div>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "flex-end",
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontSize: "4.4rem",
+                                fontWeight: "400",
+                                letterSpacing: "0",
+                                lineHeight: "5.2rem",
+                                color: "white",
+                            }}
+                        >
+                            ${lastClose}
+                        </span>
+                        <RateChange state={state}>{rate}%</RateChange>
+                        <RawChange state={state}>
+                            {state === "increase" ? "+" : "-"}
+                            {change} {periodIndicator}
+                        </RawChange>
+                    </div>
+                    {/* <CompanyLogo
                 src="https://financialmodelingprep.com/image-stock/AAPL.png"
                 alt="company logo"
             /> */}
 
-            <LastClose>
-                Last Refreshed: {dateLastRefresh(lastDate)} · USD ·{assetEC}
-            </LastClose>
-        </div>
+                    <LastClose>
+                        Last Refreshed: {dateLastRefresh(lastDate)} · USD ·
+                        {assetEC}
+                    </LastClose>
+                </div>
+            )}
+        </>
     );
 }
 

@@ -27,7 +27,11 @@ import { getDailyStockForSymbolTiingo } from "../../utils/StockApiConnectorTiing
 // import { stockDataMock } from "../../dev-data/stockDataMock";
 
 import { getPastDate, formatDate } from "../../utils/DateFunctions";
-import { getMonth, getFormattedDate, numberWithCommas } from "./UtilFunctions";
+import {
+    getMonth,
+    getFormattedDate,
+    numberWithCommas,
+} from "../../utils/UtilFunctions";
 
 export default function Graph(props) {
     const {
@@ -55,21 +59,29 @@ export default function Graph(props) {
     }
 
     // Tiingo api
-    useEffect(async () => {
-        try {
-            const res = await handleTiingoApiCall(ticker, dataPeriod);
-            const { data } = res;
-            console.log(data);
-            if (res.statusText === "OK" && data.length > 0) {
-                setStockData(data);
-                setIsTiingoApiConsumed(true);
-                setStartClose(data[0].close);
-                setLastClose(data[data.length - 1].close);
-                setLastDate(formatDate(data[data.length - 1].date));
+    useEffect(() => {
+        async function fetchMyApi() {
+            try {
+                const res = await handleTiingoApiCall(ticker, dataPeriod);
+                const { data } = res;
+
+                // console.log(res);
+                if (res.statusText === "OK" && data.length > 0) {
+                    setStockData(data);
+                    setIsTiingoApiConsumed(true);
+                    setStartClose(data[0].close);
+                    setLastClose(data[data.length - 1].close);
+                    setLastDate(formatDate(data[data.length - 1].date));
+                }
+            } catch (err) {
+                console.log(err);
             }
-        } catch (err) {
-            console.log(err);
         }
+        fetchMyApi();
+
+        return () => {
+            // setStockData([]);
+        };
     }, [ticker, dataPeriod]);
 
     return (

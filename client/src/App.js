@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 
 import "./App.scss";
 
@@ -9,6 +8,8 @@ import ButtonSwitch from "./components/periodSwitch/PeriodSwitch";
 import AssetSearch from "./components/assetSearch/AssetSearch";
 import AssetInfo from "./components/assetInfo/AssetInfo";
 import AssetKeyInfo from "./components/assetKeyInfo/AssetKeyInfo";
+import AssetNews from "./components/assetNews/AssetNews";
+import AssetFinance from "./components/assetFinance/AssetFinanace";
 
 function App() {
     const [dataPeriod, setDataPeriod] = useState("1Y");
@@ -32,7 +33,7 @@ function App() {
             >
                 <main
                     style={{
-                        padding: "2rem 5rem 0 5rem",
+                        padding: "2rem 5rem 5rem 5rem",
                     }}
                 >
                     <div
@@ -40,6 +41,7 @@ function App() {
                     >
                         <AssetSearch setTicker={setTicker} />
                     </div>
+
                     <div
                         style={{
                             padding: "3rem",
@@ -76,7 +78,19 @@ function App() {
                             setLastDate={setLastDate}
                         />
                     </div>
-                    <AssetKeyInfo />
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: "5rem",
+                        }}
+                    >
+                        <AssetNews ticker={ticker} />
+                        <AssetKeyInfo ticker={ticker} />
+                    </div>
+                    <div>
+                        <AssetFinance ticker={ticker} />
+                    </div>
                 </main>
             </div>
         </>

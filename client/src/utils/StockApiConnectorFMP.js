@@ -1,15 +1,40 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "https://www.alphavantage.co/query",
+    baseURL: "https://financialmodelingprep.com/api/v3/",
 });
 
-export const getDailyStockForSymbol = (symbol) => {
-    return axiosInstance.get("", {
+export const getAssetInfoFMP = (symbol) => {
+    return axiosInstance.get(`profile/${symbol}/`, {
         params: {
-            function: "TIME_SERIES_DAIlY",
-            symbol,
-            apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+            apikey: process.env.REACT_APP_FMP_API_KEY,
+        },
+    });
+};
+
+export const getAssetQuoteFMP = (symbol) => {
+    return axiosInstance.get(`quote/${symbol}/`, {
+        params: {
+            apikey: process.env.REACT_APP_FMP_API_KEY,
+        },
+    });
+};
+
+export const getAssetNewsFMP = (symbols, limit) => {
+    return axiosInstance.get(`stock_news/`, {
+        params: {
+            tickers: symbols,
+            apikey: process.env.REACT_APP_FMP_API_KEY,
+            limit,
+        },
+    });
+};
+
+export const getAssetFinanceFMP = (symbol, limit = 5) => {
+    return axiosInstance.get(`income-statement/${symbol}`, {
+        params: {
+            apikey: process.env.REACT_APP_FMP_API_KEY_3,
+            limit,
         },
     });
 };

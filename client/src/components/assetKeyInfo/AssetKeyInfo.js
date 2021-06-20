@@ -39,7 +39,7 @@ export default function AssetKeyInfo(props) {
                 const res = await getAssetInfoFMP(ticker);
 
                 const { status, data } = res;
-                console.log(res);
+
                 if (status === 200) {
                     setAssetInfo(data[0]);
                 }

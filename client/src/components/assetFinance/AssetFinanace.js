@@ -54,6 +54,8 @@ export default function AssetFinanace({ ticker }) {
             try {
                 const res = await getAssetFinanceFMP(ticker);
                 const { data, status } = res;
+
+                console.log(data.length);
                 if (status === 200 && data.length > 0) {
                     setFinanceData(data.reverse());
                     setFirstDate(data[0].date.split("-")[0]);
@@ -93,8 +95,6 @@ export default function AssetFinanace({ ticker }) {
         };
     }, [ticker]);
 
-    console.log(firstDate);
-
     // function teriaryAssetQuote(field) {
     //     if (assetQuote) {
     //         if (
@@ -107,6 +107,8 @@ export default function AssetFinanace({ ticker }) {
 
     //     return "N/A";
     // }
+
+    console.log(isApiConsumed1, isApiConsumed2);
 
     return (
         <>
@@ -263,7 +265,8 @@ export default function AssetFinanace({ ticker }) {
                                             Math.abs(
                                                 financeData[activeYear]
                                                     .netIncome
-                                            )
+                                            ),
+                                            2
                                         )}
                                     </RawValue>
                                     <RateChange
@@ -454,7 +457,8 @@ export default function AssetFinanace({ ticker }) {
                                             Math.abs(
                                                 financeData[activeYear]
                                                     .operatingIncome
-                                            )
+                                            ),
+                                            2
                                         )}
                                     </RawValue>
                                     <RateChange
@@ -529,14 +533,14 @@ export default function AssetFinanace({ ticker }) {
                                     </KeyInfo>
                                     <RawValue>
                                         {financeDataRate[activeYear]
-                                            .growthWeightedAverageShsOut < 0 &&
-                                            "-"}
+                                            .weightedAverageShsOut < 0 && "-"}
                                         $
                                         {nFormatter(
                                             Math.abs(
                                                 financeData[activeYear]
                                                     .weightedAverageShsOut
-                                            )
+                                            ),
+                                            2
                                         )}
                                     </RawValue>
                                     <RateChange
@@ -559,9 +563,10 @@ export default function AssetFinanace({ ticker }) {
                             </div>
                         </>
                     ) : (
-                        <div style={{ marginLeft: "25rem" }}>
+                        <div>
                             <AssetExpenses
                                 financeData={financeData}
+                                financeDataRate={financeDataRate}
                                 isApiConsumed1={isApiConsumed1}
                                 isApiConsumed2={isApiConsumed2}
                                 firstDate={firstDate}

@@ -113,7 +113,7 @@ export const InfoRow = styled.div`
 
     border-top: 1px solid #43434d;
 
-    padding: 1rem 1rem;
+    padding: 3px 1rem;
     margin: 0 4rem;
     min-height: 4.3rem;
 

@@ -63,7 +63,7 @@ export function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function nFormatter(num, digits) {
+export function nFormatter(num, digits = 2) {
     const lookup = [
         { value: 1, symbol: "" },
         { value: 1e3, symbol: "k" },

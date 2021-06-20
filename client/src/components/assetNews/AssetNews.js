@@ -38,7 +38,7 @@ export default function AssetNews({ ticker, assetName }) {
             try {
                 const res = await getAssetNewsFMP(ticker, 6);
                 const { data, status } = res;
-                console.log(res);
+
                 if (status === 200) {
                     setAssetNews(data);
                     setIsNewsApiConsumed(true);
@@ -120,9 +120,8 @@ export default function AssetNews({ ticker, assetName }) {
                     </NewsBtn>
                 </div>
 
-                {(isRelatedNews
-                    ? isNewsApiConsumed
-                    : isLatestNewsApiConsumed) &&
+                {isNewsApiConsumed &&
+                    isLatestNewsApiConsumed &&
                     newsType().map((news) => (
                         <NewsRow
                             key={`${news.title},${news.symbol},${news.site},${news.publishedDate}`}

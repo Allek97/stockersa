@@ -78,12 +78,9 @@ export default function AssetInfo({
             try {
                 const res = await searchAssetInfoTiingo(ticker);
 
-                console.log(res);
-
                 const { data } = res;
                 const { name, exchangeCode } = data;
                 if (res.statusText === "OK" && name && exchangeCode) {
-                    console.log(res);
                     setAssetName(name);
                     setAssetEC(exchangeCode);
                     setIsApiConsumed(true);

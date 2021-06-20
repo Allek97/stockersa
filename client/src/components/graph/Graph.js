@@ -36,9 +36,9 @@ import {
 export default function Graph(props) {
     const {
         dataPeriod,
+        ticker,
         isTiingoApiConsumed,
         setIsTiingoApiConsumed,
-        ticker,
         setStartClose,
         setLastClose,
         setLastDate,
@@ -233,12 +233,12 @@ const CustomizedToolTip = ({ active, payload, label }) => {
 
 Graph.propTypes = {
     dataPeriod: PropTypes.string,
+    ticker: PropTypes.string.isRequired,
     isTiingoApiConsumed: PropTypes.bool.isRequired,
     setIsTiingoApiConsumed: PropTypes.func.isRequired,
     setStartClose: PropTypes.func.isRequired,
     setLastClose: PropTypes.func.isRequired,
     setLastDate: PropTypes.func.isRequired,
-    ticker: PropTypes.string.isRequired,
 };
 
 Graph.defaultProps = {

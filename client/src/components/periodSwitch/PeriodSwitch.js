@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 //TODOTODOTODOTODOTODOTODOTODOTODOTODO
 //TODOTODOTODOTODOTODOTODOTODOTODOTODO
 //TODOTODOTODOTODOTODOTODOTODOTODOTODO
-// FIX THE API CONSUMPTION AND APP LOADING AND ASSETFINANCE
+// FIX THE API CONSUMPTION AND APP LOADING AND ASSET FINANCE
 
 export const StockPeriodBtn = styled.a`
     &,
@@ -77,6 +77,7 @@ export default function PeriodSwitch(props) {
                 display: "flex",
                 justifyContent: "space-around",
                 width: "50rem",
+                marginLeft: "auto",
             }}
         >
             {/* <StockPeriodBtn

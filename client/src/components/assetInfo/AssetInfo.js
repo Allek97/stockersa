@@ -18,9 +18,10 @@ export default function AssetInfo({
     startClose,
     lastClose,
     lastDate,
+    assetName,
+    setAssetName,
 }) {
-    const [assetName, setAssetName] = useState("");
-    const [assetEC, setAssetEC] = useState("");
+    const [assetEC, setAssetEC] = useState("...");
     const [isApiConsumed, setIsApiConsumed] = useState(false);
 
     const getStockIncreaseRate = (p1, p2) => {
@@ -76,12 +77,19 @@ export default function AssetInfo({
         async function fetchMyApi() {
             try {
                 const res = await searchAssetInfoTiingo(ticker);
-                const { name, exchangeCode } = res.data;
+
+                console.log(res);
+
+                const { data } = res;
+                const { name, exchangeCode } = data;
                 if (res.statusText === "OK" && name && exchangeCode) {
                     console.log(res);
                     setAssetName(name);
                     setAssetEC(exchangeCode);
                     setIsApiConsumed(true);
+                } else {
+                    setAssetName("No information found, try another asset !");
+                    setAssetEC("...");
                 }
             } catch (err) {
                 console.log(err);
@@ -90,13 +98,10 @@ export default function AssetInfo({
         fetchMyApi();
 
         return () => {
-            setAssetName("");
-            setAssetEC("");
-            setIsApiConsumed(false);
+            setAssetName("Searching...");
+            setAssetEC("...");
         };
     }, [ticker]);
-
-    console.log(isApiConsumed);
 
     return (
         <>
@@ -162,6 +167,8 @@ AssetInfo.propTypes = {
     startClose: PropTypes.number,
     lastClose: PropTypes.number,
     lastDate: PropTypes.string.isRequired,
+    assetName: PropTypes.string.isRequired,
+    setAssetName: PropTypes.func.isRequired,
 };
 
 AssetInfo.defaultProps = {

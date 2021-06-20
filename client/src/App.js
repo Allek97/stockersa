@@ -14,6 +14,7 @@ import AssetFinance from "./components/assetFinance/AssetFinanace";
 function App() {
     const [dataPeriod, setDataPeriod] = useState("1Y");
     const [ticker, setTicker] = useState("FB");
+    const [assetName, setAssetName] = useState("Searching...");
     const [isTiingoApiConsumed, setIsTiingoApiConsumed] = useState(false);
 
     // Utilisee pour calculer les ratios
@@ -24,7 +25,7 @@ function App() {
 
     return (
         <>
-            {!isTiingoApiConsumed && <Loading loadingTime={10000} />}
+            <Loading loadingTime={1500} />
             <div
                 style={{
                     // height: "100vh",
@@ -65,6 +66,8 @@ function App() {
                                 startClose={startClose}
                                 lastClose={lastClose}
                                 lastDate={lastDate}
+                                assetName={assetName}
+                                setAssetName={setAssetName}
                             />
                             <ButtonSwitch setDataPeriod={setDataPeriod} />
                         </div>
@@ -76,6 +79,7 @@ function App() {
                             setStartClose={setStartClose}
                             setLastClose={setLastClose}
                             setLastDate={setLastDate}
+                            setAssetName={setAssetName}
                         />
                     </div>
                     <div
@@ -85,11 +89,11 @@ function App() {
                             marginBottom: "5rem",
                         }}
                     >
-                        <AssetNews ticker={ticker} />
+                        <div>
+                            <AssetNews ticker={ticker} assetName={assetName} />
+                            <AssetFinance ticker={ticker} />
+                        </div>
                         <AssetKeyInfo ticker={ticker} />
-                    </div>
-                    <div>
-                        <AssetFinance ticker={ticker} />
                     </div>
                 </main>
             </div>

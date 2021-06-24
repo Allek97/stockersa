@@ -42,7 +42,7 @@ export const getAssetLatestNewsFMP = (limit = 6) => {
 export const getAssetFinanceFMP = (symbol, limit = 5) => {
     return axiosInstance.get(`income-statement/${symbol}`, {
         params: {
-            apikey: process.env.REACT_APP_FMP_API_KEY,
+            apikey: process.env.REACT_APP_FMP_API_KEY_4,
             limit,
         },
     });

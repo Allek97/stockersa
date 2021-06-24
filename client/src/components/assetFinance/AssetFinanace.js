@@ -55,7 +55,7 @@ export default function AssetFinanace({ ticker }) {
                 const res = await getAssetFinanceFMP(ticker);
                 const { data, status } = res;
 
-                console.log(data.length);
+                console.log(res);
                 if (status === 200 && data.length > 0) {
                     setFinanceData(data.reverse());
                     setFirstDate(data[0].date.split("-")[0]);
@@ -79,6 +79,7 @@ export default function AssetFinanace({ ticker }) {
             try {
                 const res = await getAssetFinanceRateFMP(ticker);
                 const { data, status } = res;
+                console.log(res);
                 if (status === 200 && data.length > 0) {
                     setFinanceDataRate(data.reverse());
                     setIsApiConsumed2(true);

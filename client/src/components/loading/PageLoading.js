@@ -2,15 +2,53 @@ import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
-const spin = keyframes`
-    0% {
-        transform: rotate(0deg) scale(1);
+const ballAnimation1 = keyframes`
+     0% {
+        transform: scale(0) ;
     }
+
     50% {
-        transform: rotate(180deg) scale(1.1);
+        transform: scale(.5);
     }
+
+    75% {
+        transform: scale(1);
+    }
+   
     100% {
-        transform: rotate(360deg) ;
+        transform: scale(.5) ;
+    }
+`;
+
+const ballAnimation2 = keyframes`
+     0% {
+        transform: scale(0.5) ;
+    }
+
+    50% {
+        transform: scale(1);
+    }
+   
+    100% {
+        transform: scale(.5) ;
+    }
+`;
+
+const ballAnimation3 = keyframes`
+     0% {
+        transform: scale(1) ;
+    }
+
+    50% {
+        transform: scale(.5);
+    }
+
+    75% {
+        transform: scale(0.2);
+    }
+   
+    100% {
+        transform: scale(1) ;
     }
 `;
 
@@ -33,30 +71,25 @@ const Overlay = styled.div`
     background-color: white;
 `;
 
-const Spinner1 = styled.div`
-    position: relative;
-    width: 6rem;
-    height: 6rem;
-    border: solid rgba(0, 0, 0, 0.025) 1.4px;
+const Ball1 = styled.div`
+    transition: all 3s;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    background-color: rgba(var(--color-primary-light), 1);
 
     border-radius: 50%;
+
+    animation: ${ballAnimation1} 0.85s linear infinite;
 `;
 
-const Spinner2 = styled.div`
-    position: absolute;
-    top: -1.5px;
-    bottom: -1.5px;
+const Ball2 = styled(Ball1)`
+    animation: ${ballAnimation2} 0.85s linear infinite;
+`;
 
-    animation: ${spin} 0.6s linear infinite;
-
-    width: 6rem;
-    height: 6rem;
-
-    border-top: solid rgba(var(--color-blue-special), 0.7) 1.8px;
-    border-bottom: solid rgba(var(--color-blue-special), 0.7) 1.8px;
-    /* border-right: solid rgba(var(--color-blue-special), 0.7) 1.8px; */
-
-    border-radius: 50%;
+const Ball3 = styled(Ball1)`
+    animation: ${ballAnimation3} 0.85s linear infinite;
 `;
 
 export default function Loading({ loadingTime }) {
@@ -73,9 +106,18 @@ export default function Loading({ loadingTime }) {
         <>
             {isLoading && (
                 <Overlay>
-                    <Spinner1>
-                        <Spinner2 />
-                    </Spinner1>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "7rem",
+                        }}
+                    >
+                        <Ball1 />
+                        <Ball2 />
+                        <Ball3 />
+                    </div>
                 </Overlay>
             )}
         </>

@@ -51,9 +51,11 @@ export default function Graph(props) {
         const res = getDailyStockForSymbolTiingo(
             symbol,
             getPastDate(period),
-            formatDate(new Date()),
+            formatDate(),
             frequency
         );
+
+        console.log(getPastDate(period), period);
 
         return res;
     }
@@ -63,6 +65,7 @@ export default function Graph(props) {
         async function fetchMyApi() {
             try {
                 const res = await handleTiingoApiCall(ticker, dataPeriod);
+                console.log(res, ticker, dataPeriod);
                 const { data } = res;
 
                 // console.log(res);
@@ -132,6 +135,8 @@ export default function Graph(props) {
                                         // On s'en fout de l'an
 
                                         str = str.split("T")[0];
+
+                                        console.log(str);
 
                                         const day = parseInt(
                                             str.split("-")[2],

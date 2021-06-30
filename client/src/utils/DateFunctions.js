@@ -8,10 +8,10 @@ export function dateLastRefresh(date) {
     return showEventDate;
 }
 
-export function formatDate(date) {
+export function formatDate(date = new Date()) {
     const d = new Date(date);
     let month = "" + (d.getMonth() + 1);
-    let day = "" + (d.getDate() + 1);
+    let day = "" + d.getDate();
     const year = d.getFullYear();
 
     if (month.length < 2) month = "0" + month;
@@ -54,6 +54,8 @@ export const getPastDate = (pastValue) => {
         default:
             break;
     }
+
+    console.log(date);
 
     return formatDate(date);
 };

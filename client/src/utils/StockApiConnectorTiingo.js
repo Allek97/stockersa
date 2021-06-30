@@ -13,7 +13,7 @@ export const getDailyStockForSymbolTiingo = (
     return axiosInstance.get(`api/tiingo/`, {
         params: {
             url: encodeURI(
-                `https://api.tiingo.com/tiingo/daily/${symbol}/prices/?startDate=${startDate}&endDate${endDate}&resampleFreq=${frequence}&format:"json"&token=${process.env.REACT_APP_TIINGO_API_KEY}`
+                `https://api.tiingo.com/tiingo/daily/${symbol}/prices/?startDate=${startDate}&endDate=${endDate}&resampleFreq=${frequence}&format:"json"&token=${process.env.REACT_APP_TIINGO_API_KEY}`
             ),
         },
     });

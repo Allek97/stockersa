@@ -68,7 +68,7 @@ export const UtilBtn = styled.a`
 
         border-radius: 3px;
 
-        background-color: transparent;
+        /* background-color: transparent; */
         overflow: hidden;
 
         text-decoration: none;

@@ -55,8 +55,6 @@ export default function Graph(props) {
             frequency
         );
 
-        console.log(getPastDate(period), period);
-
         return res;
     }
 
@@ -135,8 +133,6 @@ export default function Graph(props) {
                                         // On s'en fout de l'an
 
                                         str = str.split("T")[0];
-
-                                        console.log(str);
 
                                         const day = parseInt(
                                             str.split("-")[2],

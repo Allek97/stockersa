@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
 import Loading from "../../components/loading/PageLoading";
 import Graph from "../../components/graph/Graph";
@@ -8,25 +7,16 @@ import AssetSearch from "../../components/assetSearch/AssetSearch";
 import AssetInfo from "../../components/assetInfo/AssetInfo";
 import AssetKeyInfo from "../../components/assetKeyInfo/AssetKeyInfo";
 import AssetNews from "../../components/assetNews/AssetNews";
-import AssetFinance from "../../components/assetFinance/AssetFinanace";
+import AssetFinance from "../../components/assetFinance/AssetFinance";
+import StockMap from "../../components/maps/StockMap";
+import UsePlaces from "../../components/maps/components/UsePlaces";
 
-import { ReactComponent as LogoSvg } from "../../assets/svg/asset.svg";
+import { ReactComponent as LogoSvg } from "../../assets/svgs/asset.svg";
+// import { ReactComponent as Computer } from "../../assets/svgs/computer.svg";
 
-const LogoName = styled.span`
-    margin-left: 1.5rem;
+import { LogoName, AssetInfoStyle } from "./StockPageStyle";
 
-    /* background-image: linear-gradient(to right, #18acea, #cb3d8a, #084698);
-     */
-
-    background-image: linear-gradient(to left, #18acea, #084698);
-
-    background-clip: text;
-    -webkit-background-clip: text;
-
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: transparent;
-`;
+import "./_stockPage.scss";
 
 export default function StockPage() {
     const [dataPeriod, setDataPeriod] = useState("1Y");
@@ -43,58 +33,26 @@ export default function StockPage() {
     return (
         <>
             <Loading loadingTime={1500} />
-            <div
-                style={{
-                    // height: "100vh",
-                    backgroundColor: "#1f2033",
-                    padding: "2rem 5rem 5rem 5rem",
-                }}
-            >
-                <header style={{ display: "flex", alignItems: "flex-start" }}>
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div
+            <div className="stockpage">
+                <header className="stockpage-header">
+                    <div>
+                        <LogoSvg
                             style={{
                                 height: "4.3rem",
                                 width: "4.3rem",
                             }}
-                        >
-                            <LogoSvg />
-                        </div>
+                        />
+
                         <LogoName>Stockersa</LogoName>
                     </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            width: "max-content",
-                            margin: "0 auto 10rem",
-                        }}
-                    >
+                    <nav>
                         <AssetSearch setTicker={setTicker} />
-                    </div>
+                    </nav>
                 </header>
-                <main>
-                    <div
-                        style={{
-                            padding: "3rem",
-                            marginBottom: "5rem",
-                            boxShadow: "var(--shadow-dark)",
-                            border: "1px solid #142d69",
-                            borderRadius: "3rem",
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                                marginBottom: "5rem",
-                            }}
-                        >
+
+                <main className="stockpage-main">
+                    <section className="stockpage-main__price">
+                        <AssetInfoStyle>
                             <AssetInfo
                                 ticker={ticker}
                                 dataPeriod={dataPeriod}
@@ -105,7 +63,7 @@ export default function StockPage() {
                                 setAssetName={setAssetName}
                             />
                             <ButtonSwitch setDataPeriod={setDataPeriod} />
-                        </div>
+                        </AssetInfoStyle>
                         <Graph
                             dataPeriod={dataPeriod}
                             isTiingoApiConsumed={isTiingoApiConsumed}
@@ -116,20 +74,45 @@ export default function StockPage() {
                             setLastDate={setLastDate}
                             setAssetName={setAssetName}
                         />
-                    </div>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginBottom: "5rem",
-                        }}
-                    >
+                    </section>
+                    <section className="stockpage-main__news-finance">
                         <div>
                             <AssetNews ticker={ticker} assetName={assetName} />
                             <AssetFinance ticker={ticker} />
                         </div>
+
                         <AssetKeyInfo ticker={ticker} />
-                    </div>
+
+                        {/* <Computer /> */}
+                        {/* <img
+                            src="https://app.brandmark.io/v3/img/logo-preview/mac.png"
+                            alt="pc"
+                            style={{
+                                height: "100rem",
+                            }}
+                        /> */}
+                    </section>
+                    {/* <section
+                        className="stockpage-main__map"
+                        style={{ marginBottom: "5rem" }}
+                    >
+                        <div>
+                            <h1
+                                style={{
+                                    textAlign: "center",
+                                    fontSize: "3rem",
+                                    padding: "1rem",
+                                    color: "white",
+                                }}
+                            >
+                                Stock exchanges around the world
+                            </h1>
+                        </div>
+                    </section> */}
+                    <section className="stockpage-main__map">
+                        <StockMap />
+                        {/* <UsePlaces /> */}
+                    </section>
                 </main>
             </div>
         </>

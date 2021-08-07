@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import calenderSvg from "../../../assets/svg/calendar.svg";
+import calenderSvg from "../../../assets/svgs/calendar.svg";
 
 export const CustomToolTip = styled.div`
     padding: 1rem 1rem;

@@ -1,5 +1,14 @@
 import styled from "styled-components";
-import ArrowUp from "../../../assets/svg/arrow-up.svg";
+import ArrowUp from "../../../assets/svgs/arrow-up.svg";
+
+export const AssetNameHeading = styled.h1`
+    margin-right: 5rem;
+    font-size: 2.4rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 3.2rem;
+    color: white;
+`;
 
 export const RateChange = styled.span`
     display: flex;

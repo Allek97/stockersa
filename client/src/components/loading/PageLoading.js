@@ -53,8 +53,8 @@ const ballAnimation3 = keyframes`
 `;
 
 const Overlay = styled.div`
-    z-index: 100;
     position: fixed;
+    z-index: 1000000;
     top: 0;
     left: 0;
 
@@ -69,6 +69,13 @@ const Overlay = styled.div`
     height: 100%;
 
     background-color: white;
+
+    & > div:first-of-type {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 7rem;
+    }
 `;
 
 const Ball1 = styled.div`
@@ -77,7 +84,7 @@ const Ball1 = styled.div`
     width: 1.5rem;
     height: 1.5rem;
 
-    background-color: rgba(var(--color-primary-light), 1);
+    background-color: RGBA(var(--color-primary-light), 1);
 
     border-radius: 50%;
 
@@ -106,14 +113,7 @@ export default function Loading({ loadingTime }) {
         <>
             {isLoading && (
                 <Overlay>
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            width: "7rem",
-                        }}
-                    >
+                    <div>
                         <Ball1 />
                         <Ball2 />
                         <Ball3 />

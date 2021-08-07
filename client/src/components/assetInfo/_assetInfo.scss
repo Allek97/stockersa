@@ -1,0 +1,20 @@
+.asset-info {
+    transition: all 1s;
+
+    div:first-of-type {
+        display: flex;
+    }
+
+    div:nth-child(2) {
+        display: flex;
+        align-items: flex-end;
+
+        & > span:first-of-type {
+            font-size: 4.4rem;
+            font-weight: 400;
+            letter-spacing: 0;
+            line-height: 5.2rem;
+            color: white;
+        }
+    }
+}

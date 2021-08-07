@@ -78,125 +78,84 @@ export default function AssetNews({ ticker, assetName }) {
     }, [ticker]);
 
     return (
-        <div>
-            <NewsContainer style={{ marginBottom: "5rem" }}>
-                <div style={{ display: "flex" }}>
-                    <Title>
-                        {isRelatedNews
-                            ? `News related to ${assetName}`
-                            : `Latest News in the market`}
-                    </Title>
+        <NewsContainer>
+            <div>
+                <Title>
+                    {isRelatedNews
+                        ? `News related to ${assetName}`
+                        : `Latest News in the market`}
+                </Title>
+                <div>
                     <NewsBtn
-                        isRelatedNews={isRelatedNews}
+                        isRelatedNews={isRelatedNews ? 1 : 0}
                         selected={isRelatedNews}
                         onClick={() => {
                             setIsRelatedNews(true);
                         }}
                         style={{
-                            marginLeft: "auto",
                             marginRight: "1rem",
-                            backgroundColor: isRelatedNews
-                                ? "#e8f0fe"
-                                : "transparent",
+                            marginLeft: "1rem",
                         }}
                     >
                         Related News
                     </NewsBtn>
                     <NewsBtn
-                        isRelatedNews={isRelatedNews}
+                        isRelatedNews={!isRelatedNews ? 1 : 0}
                         selected={!isRelatedNews}
                         onClick={() => {
                             setIsRelatedNews(false);
-                        }}
-                        style={{
-                            marginRight: "2px",
-                            marginLeft: "2px",
-                            backgroundColor: !isRelatedNews
-                                ? "#e8f0fe"
-                                : "transparent",
                         }}
                     >
                         Lastest News
                     </NewsBtn>
                 </div>
+            </div>
 
-                {isNewsApiConsumed &&
-                    isLatestNewsApiConsumed &&
-                    newsType().map((news) => (
-                        <NewsRow
-                            key={`${news.title},${news.symbol},${news.site},${news.publishedDate}`}
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <div style={{ marginRight: "5rem" }}>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            marginBottom: "1rem",
-                                        }}
-                                    >
-                                        <SiteWeb>{news.site} </SiteWeb>
-                                        <span
-                                            style={{
-                                                fontSize: "1.3rem",
-                                                color: "#a5a5b1",
-                                            }}
-                                        >
-                                            {dateLastRefresh(
-                                                news.publishedDate
-                                            )}
-                                        </span>
-                                        <StockSymbol>{news.symbol}</StockSymbol>
-                                    </div>
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            flexDirection: "column",
-                                        }}
-                                    >
-                                        <NewsTitle
-                                            onClick={() => {
-                                                window.open(
-                                                    `${news.url}`,
-                                                    "_blank"
-                                                );
-                                            }}
-                                        >
-                                            {news.title}
-                                        </NewsTitle>
-                                        <NewsContent>
-                                            {news.text.substring(0, 300)}
-                                            ...
-                                        </NewsContent>
-                                    </div>
-                                </div>
-                                <div
+            {isNewsApiConsumed &&
+                isLatestNewsApiConsumed &&
+                newsType().map((news) => (
+                    <NewsRow
+                        key={`${news.title},${news.symbol},${news.site},${news.publishedDate}`}
+                    >
+                        <div className="news-info">
+                            <div>
+                                <SiteWeb>{news.site} </SiteWeb>
+                                <span
                                     style={{
-                                        overflow: "hidden",
-                                        borderRadius: "1rem",
+                                        fontSize: "1.3rem",
+                                        color: "#a5a5b1",
                                     }}
                                 >
-                                    <NewsImage
-                                        src={`${news.image}`}
-                                        alt="news thumbnail"
-                                        onClick={() => {
-                                            window.open(
-                                                `${news.url}`,
-                                                "_blank"
-                                            );
-                                        }}
-                                    />
-                                </div>
+                                    {dateLastRefresh(news.publishedDate)}
+                                </span>
+                                <StockSymbol>{news.symbol}</StockSymbol>
                             </div>
-                        </NewsRow>
-                    ))}
-            </NewsContainer>
-        </div>
+                            <div>
+                                <NewsTitle
+                                    onClick={() => {
+                                        window.open(`${news.url}`, "_blank");
+                                    }}
+                                >
+                                    {news.title}
+                                </NewsTitle>
+                                <NewsContent>
+                                    {news.text.substring(0, 300)}
+                                    ...
+                                </NewsContent>
+                            </div>
+                        </div>
+                        <div className="news-thumbnail">
+                            <NewsImage
+                                src={`${news.image}`}
+                                alt="news thumbnail"
+                                onClick={() => {
+                                    window.open(`${news.url}`, "_blank");
+                                }}
+                            />
+                        </div>
+                    </NewsRow>
+                ))}
+        </NewsContainer>
     );
 }
 

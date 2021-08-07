@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import InfoIcon from "../../../assets/svg/info-icon.svg";
-import ArrowUp from "../../../assets/svg/arrow-up.svg";
+import InfoIcon from "../../../assets/svgs/info-icon.svg";
+import ArrowUp from "../../../assets/svgs/arrow-up.svg";
 
 export const Container = styled.div`
     display: block;

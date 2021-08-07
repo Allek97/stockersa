@@ -5,34 +5,64 @@ export const NewsContainer = styled.div`
 
     /* flex: 0 0 114rem; */
 
-    width: 114rem;
+    /* max-width: 114rem; */
 
     padding: 2rem;
+    margin-bottom: 5rem;
 
     box-shadow: var(--shadow-dark);
     border: 1px solid #142d69;
 
     border-radius: 2em;
+
+    & > div:first-of-type {
+        display: flex;
+
+        & > div:first-of-type {
+            display: flex;
+        }
+    }
 `;
 
 export const Title = styled.h1`
-    width: 70%;
+    max-width: 70%;
+    margin: 0 auto 1.2rem 0;
 
     font-size: 2.2rem;
     font-weight: 400;
     letter-spacing: 0;
 
     color: white;
-    margin-bottom: 1.2rem;
-    margin-top: 0;
 `;
 
 export const NewsRow = styled.div`
-    display: block;
+    display: flex;
+
+    justify-content: space-between;
 
     padding: 1.5rem 0;
 
     border-top: 1px solid #dadce0;
+
+    .news-info {
+        flex: 1;
+        margin-right: 5rem;
+
+        & > div:first-of-type {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        & > div:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .new-thumbnail {
+        overflow: hidden;
+        border-radius: 1rem;
+    }
 `;
 
 export const SiteWeb = styled.span`
@@ -62,7 +92,7 @@ export const SiteWeb = styled.span`
 
 export const NewsTitle = styled.span`
     margin-bottom: 3rem;
-    width: 80rem;
+    max-width: 80rem;
 
     letter-spacing: 0.00625em;
     font-size: 1.7rem;
@@ -79,7 +109,6 @@ export const NewsTitle = styled.span`
 `;
 
 export const NewsContent = styled(NewsTitle)`
-    width: 80rem;
     margin-bottom: 0;
 
     color: #fff;
@@ -129,19 +158,13 @@ export const NewsBtn = styled.a`
     &,
     &:link,
     &:visited {
-        display: flex;
-        align-items: center;
+        /* display: flex;
+        align-items: center; */
 
         transition: all 0.3s;
-        /* box-shadow: 1px 1px 3.2rem rgba(31, 55, 180, 0.3); */
-
-        /* height: 3.8rem; */
-        /* width: 3.8rem; */
-
-        /* border-radius: 18px; */
 
         background-color: ${(props) =>
-            props.isRelatedNews ? "#e8f0fe" : "red"};
+            props.isRelatedNews ? "#e8f0fe" : "transparent"};
 
         padding: 5px 1.3rem;
         width: max-content;
@@ -149,10 +172,10 @@ export const NewsBtn = styled.a`
 
         border-radius: 3px;
 
-        background-color: transparent;
         overflow: hidden;
 
         text-decoration: none;
+        white-space: nowrap;
         font-size: 1.5rem;
         font-weight: 600;
         color: #1967d2;

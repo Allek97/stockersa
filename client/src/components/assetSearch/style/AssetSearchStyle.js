@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
-import LoopSvg from "../../../assets/svg/search.svg";
-import CloseSvg from "../../../assets/svg/close.svg";
-import AssetSvg from "../../../assets/svg/asset.svg";
+import LoopSvg from "../../../assets/svgs/search.svg";
+import CloseSvg from "../../../assets/svgs/close.svg";
+import AssetSvg from "../../../assets/svgs/asset.svg";
 
 export const SearchBar = styled.div`
     position: relative;

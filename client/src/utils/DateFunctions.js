@@ -55,7 +55,5 @@ export const getPastDate = (pastValue) => {
             break;
     }
 
-    console.log(date);
-
     return formatDate(date);
 };

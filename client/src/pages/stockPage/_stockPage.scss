@@ -1,0 +1,58 @@
+.stockpage {
+    background-color: RGBA(var(--color-principal));
+    padding: 2rem 5rem 5rem;
+}
+
+.stockpage-header {
+    display: flex;
+    align-items: flex-start;
+
+    max-width: 200rem;
+    width: 95vw;
+    margin: 0 auto 10rem;
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+
+    nav {
+        margin: 0 auto;
+    }
+}
+
+.stockpage-main {
+    max-width: 200rem;
+    width: 95vw;
+    margin: 0 auto 10rem;
+
+    &__price {
+        padding: 3rem;
+        margin-bottom: 5rem;
+        box-shadow: var(--shadow-dark);
+        border: 1px solid #142d69;
+        border-radius: 3rem;
+    }
+
+    &__news-finance {
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 5rem;
+        // max-width: 200rem;
+
+        & > div:first-of-type {
+            flex: 1;
+            max-width: 114rem;
+            margin-right: 5rem;
+        }
+    }
+
+    &__map {
+        // padding: 2rem;
+        box-shadow: var(--shadow-light);
+        border: 1px solid #142d69;
+        border-radius: 2em;
+        overflow: hidden;
+    }
+}

@@ -6,8 +6,10 @@ import {
     RateChange,
     RawChange,
     LastClose,
-    CompanyLogo,
+    AssetNameHeading,
 } from "./style/AssetInfoStyle";
+
+import "./_assetInfo.scss";
 
 import { dateLastRefresh } from "../../utils/DateFunctions";
 import { searchAssetInfoTiingo } from "../../utils/StockApiConnectorTiingo";
@@ -103,40 +105,14 @@ export default function AssetInfo({
     return (
         <>
             {isApiConsumed && (
-                <div style={{ transition: "all 1s" }}>
-                    <div style={{ display: "flex" }}>
-                        <h1
-                            style={{
-                                marginRight: "5rem",
-                                fontSize: "2.4rem",
-                                fontWeight: "400",
-                                letterSpacing: "0",
-                                lineHeight: "3.2rem",
-                                color: "white",
-                            }}
-                        >
-                            {assetName}.
-                        </h1>
+                <div className="asset-info">
+                    <div>
+                        <AssetNameHeading>{assetName}.</AssetNameHeading>
                         <StockSymbol state={state}>{ticker}</StockSymbol>
                     </div>
 
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "flex-end",
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontSize: "4.4rem",
-                                fontWeight: "400",
-                                letterSpacing: "0",
-                                lineHeight: "5.2rem",
-                                color: "white",
-                            }}
-                        >
-                            ${lastClose}
-                        </span>
+                    <div>
+                        <span>${lastClose}</span>
                         <RateChange state={state}>{rate}%</RateChange>
                         <RawChange state={state}>
                             {state === "increase" ? "+" : "-"}
@@ -144,9 +120,9 @@ export default function AssetInfo({
                         </RawChange>
                     </div>
                     {/* <CompanyLogo
-                src="https://financialmodelingprep.com/image-stock/AAPL.png"
-                alt="company logo"
-            /> */}
+                        src="https://financialmodelingprep.com/image-stock/AAPL.png"
+                        alt="company logo"
+                    /> */}
 
                     <LastClose>
                         Last Refreshed: {dateLastRefresh(lastDate)} · USD ·

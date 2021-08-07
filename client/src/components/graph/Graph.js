@@ -63,7 +63,7 @@ export default function Graph(props) {
         async function fetchMyApi() {
             try {
                 const res = await handleTiingoApiCall(ticker, dataPeriod);
-                console.log(res, ticker, dataPeriod);
+                // console.log(res, ticker, dataPeriod);
                 const { data } = res;
 
                 // console.log(res);

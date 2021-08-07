@@ -21,8 +21,8 @@ import { nFormatter } from "../../../utils/UtilFunctions";
 export default function AssetExpenses({
     financeData,
     financeDataRate,
-    isApiConsumed1,
-    isApiConsumed2,
+    isFinanceApiConsumed,
+    isFinanceRateApiConsumed,
     firstDate,
 }) {
     const [active, setActive] = useState(null);
@@ -72,7 +72,7 @@ export default function AssetExpenses({
 
     return (
         <>
-            {isApiConsumed1 && isApiConsumed2 && (
+            {isFinanceApiConsumed && isFinanceRateApiConsumed && (
                 <div>
                     <div style={{ position: "relative" }}>
                         <div
@@ -560,6 +560,6 @@ AssetExpenses.propTypes = {
     financeDataRate: PropTypes.arrayOf(PropTypes.shape({}).isRequired)
         .isRequired,
     firstDate: PropTypes.string.isRequired,
-    isApiConsumed1: PropTypes.bool.isRequired,
-    isApiConsumed2: PropTypes.bool.isRequired,
+    isFinanceApiConsumed: PropTypes.bool.isRequired,
+    isFinanceRateApiConsumed: PropTypes.bool.isRequired,
 };

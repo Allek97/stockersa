@@ -43,7 +43,8 @@ export const getFormattedDate = (date) => {
     // date : year-month-day T00:00
     // return Sunday 16 May, 2021
 
-    date = date.split("T")[0];
+    const time = date.split(" ")[1];
+    date = date.split(" ")[0];
 
     const year = date.split("-")[0];
     const monthNb = date.split("-")[1];
@@ -52,7 +53,7 @@ export const getFormattedDate = (date) => {
     const day = getDayFromDate(date);
     const month = getMonth(monthNb);
 
-    const formattededDate = `${day} ${dayNb} ${month}, ${year}`;
+    const formattededDate = `${day} ${dayNb} ${month}, ${year} ${time || ""}`;
 
     return formattededDate;
 };

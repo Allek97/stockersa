@@ -30,6 +30,8 @@ app.use(cookieParser());
 // Data sanitization against XSS
 app.use(xss());
 
+// NOTE: routes
+
 app.get("/api/tiingo/", (req, res) => {
     const { url } = req.query;
     const requestOptions = {
@@ -44,6 +46,27 @@ app.get("/api/tiingo/", (req, res) => {
             res.json({
                 status: "error",
                 message: "Something wrong in Tiingo url query",
+                error,
+            });
+        }
+        res.send(body);
+    });
+});
+
+app.get("/api/fmp/", (req, res) => {
+    const { url } = req.query;
+    const requestOptions = {
+        url: decodeURI(url),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+
+    request(requestOptions, (error, response, body) => {
+        if (error) {
+            res.json({
+                status: "error",
+                message: "Something wrong in FMP url query",
                 error,
             });
         }

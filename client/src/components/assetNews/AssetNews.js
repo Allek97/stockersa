@@ -16,8 +16,8 @@ import {
 import { dateLastRefresh } from "../../utils/DateFunctions";
 import {
     getAssetNewsFMP,
-    getAssetLatestNewsFMP,
-} from "../../utils/StockApiConnectorFMP";
+    getLatestNewsFMP,
+} from "../../utils/apis/StockApiConnectorFMP";
 
 export default function AssetNews({ ticker, assetName }) {
     const [assetNews, setAssetNews] = useState([]);
@@ -59,7 +59,7 @@ export default function AssetNews({ ticker, assetName }) {
     useEffect(() => {
         async function fetchMyApi() {
             try {
-                const res = await getAssetLatestNewsFMP(6);
+                const res = await getLatestNewsFMP(6);
                 const { data, status } = res;
                 if (status === 200) {
                     setLatestNews(data);
@@ -124,6 +124,7 @@ export default function AssetNews({ ticker, assetName }) {
                                     style={{
                                         fontSize: "1.3rem",
                                         color: "#a5a5b1",
+                                        marginRight: "1rem",
                                     }}
                                 >
                                     {dateLastRefresh(news.publishedDate)}

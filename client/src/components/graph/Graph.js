@@ -23,7 +23,11 @@ import {
 // NOTE: FUNCTIONS
 
 // import { getDailyStockForSymbol } from "../../utils/StockApiConnectorAlphaVintage";
-import { getDailyStockForSymbolTiingo } from "../../utils/StockApiConnectorTiingo";
+// import { getDailyStockForSymbolTiingo } from "../../utils/apis/StockApiConnectorTiingo";
+import {
+    getDailyAssetPriceFMP,
+    getTimelyAssetPriceFMP,
+} from "../../utils/apis/StockApiConnectorFMP";
 // import { stockDataMock } from "../../dev-data/stockDataMock";
 
 import { getPastDate, formatDate } from "../../utils/DateFunctions";
@@ -37,8 +41,8 @@ export default function Graph(props) {
     const {
         dataPeriod,
         ticker,
-        isTiingoApiConsumed,
-        setIsTiingoApiConsumed,
+        isFMPApiConsumed,
+        setIsFMPApiConsumed,
         setStartClose,
         setLastClose,
         setLastDate,
@@ -46,48 +50,76 @@ export default function Graph(props) {
 
     const [stockData, setStockData] = useState([]);
 
-    function handleTiingoApiCall(symbol, period) {
-        const frequency = dataPeriod === "5Y" ? "weekly" : "daily";
-        const res = getDailyStockForSymbolTiingo(
-            symbol,
-            getPastDate(period),
-            formatDate(),
-            frequency
-        );
+    //NOTE:  Find a better way to do it
+    const getLastTradingDate = async () => {
+        try {
+            const res = await getDailyAssetPriceFMP(
+                ticker,
+                getPastDate("1W"),
+                formatDate()
+            );
 
-        return res;
-    }
+            const { historical } = res.data;
 
-    // Tiingo api
-    useEffect(() => {
-        async function fetchMyApi() {
-            try {
-                const res = await handleTiingoApiCall(ticker, dataPeriod);
-                // console.log(res, ticker, dataPeriod);
-                const { data } = res;
-
-                // console.log(res);
-                if (res.statusText === "OK" && data.length > 0) {
-                    setStockData(data);
-                    setIsTiingoApiConsumed(true);
-                    setStartClose(data[0].close);
-                    setLastClose(data[data.length - 1].close);
-                    setLastDate(formatDate(data[data.length - 1].date));
-                }
-            } catch (err) {
-                console.log(err);
-            }
+            return historical[0].date;
+        } catch (err) {
+            console.log(err);
         }
-        fetchMyApi();
+    };
 
-        return () => {
-            // setStockData([]);
-        };
+    const handleFMPAssetPriceApi = async () => {
+        try {
+            let res;
+            let assetData;
+            const lastTradingDate = await getLastTradingDate();
+            if (dataPeriod === "1D") {
+                res = await getTimelyAssetPriceFMP(
+                    ticker,
+                    lastTradingDate,
+                    lastTradingDate,
+                    "5min"
+                );
+                assetData = res.data;
+                console.log(res);
+            } else if (dataPeriod === "1W") {
+                res = await getTimelyAssetPriceFMP(
+                    ticker,
+                    getPastDate(dataPeriod),
+                    formatDate(),
+                    "30min"
+                );
+                assetData = res.data;
+            } else {
+                res = await getDailyAssetPriceFMP(
+                    ticker,
+                    getPastDate(dataPeriod),
+                    formatDate()
+                );
+                assetData = res.data.historical;
+            }
+
+            assetData = assetData.reverse();
+
+            if (res.statusText === "OK" && assetData.length > 0) {
+                setStockData(assetData);
+                setIsFMPApiConsumed(true);
+                setStartClose(assetData[0].close);
+                setLastClose(assetData[assetData.length - 1].close);
+                setLastDate(assetData[assetData.length - 1].date);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // FMP api
+    useEffect(() => {
+        handleFMPAssetPriceApi();
     }, [ticker, dataPeriod]);
 
     return (
         <>
-            {isTiingoApiConsumed && (
+            {isFMPApiConsumed && (
                 <>
                     <div>
                         <ResponsiveContainer width="100%" height={700}>
@@ -216,7 +248,7 @@ const CustomizedToolTip = ({ active, payload, label }) => {
                 <p>
                     Closed:{" "}
                     <span style={{ color: "white" }}>
-                        {payload[0].payload.close}
+                        {payload[0].payload.close.toFixed(2)}
                     </span>{" "}
                     <span style={{ fontSize: "1.3rem", color: "white" }}>
                         USD
@@ -235,8 +267,8 @@ const CustomizedToolTip = ({ active, payload, label }) => {
 Graph.propTypes = {
     dataPeriod: PropTypes.string,
     ticker: PropTypes.string.isRequired,
-    isTiingoApiConsumed: PropTypes.bool.isRequired,
-    setIsTiingoApiConsumed: PropTypes.func.isRequired,
+    isFMPApiConsumed: PropTypes.bool.isRequired,
+    setIsFMPApiConsumed: PropTypes.func.isRequired,
     setStartClose: PropTypes.func.isRequired,
     setLastClose: PropTypes.func.isRequired,
     setLastDate: PropTypes.func.isRequired,

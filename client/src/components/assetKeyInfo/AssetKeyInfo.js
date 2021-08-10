@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {
     getAssetInfoFMP,
     getAssetQuoteFMP,
-} from "../../utils/StockApiConnectorFMP";
+} from "../../utils/apis/StockApiConnectorFMP";
 import { nFormatter, convertCodeCountry } from "../../utils/UtilFunctions";
 
 import {

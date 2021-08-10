@@ -17,7 +17,6 @@ export const RateChange = styled.span`
     width: min-content;
     padding: 5px 0.8rem;
     margin-bottom: 7px;
-    margin-left: 2rem;
 
     border-radius: 8px;
 
@@ -62,6 +61,7 @@ export const RawChange = styled.span`
     font-weight: 600;
     line-height: 2.4rem;
     word-spacing: 1px;
+    white-space: nowrap;
     color: ${(props) =>
         props.state === "increase"
             ? "rgb(var(--color-green-special))"
@@ -88,7 +88,6 @@ export const StockSymbol = styled.div`
     width: max-content;
     height: max-content;
     margin-left: auto;
-    align-self: flex-end;
 
     border-radius: 1rem;
 
@@ -102,6 +101,7 @@ export const StockSymbol = styled.div`
     font-weight: 600;
     letter-spacing: 0.01785714em;
     line-height: 2rem;
+    white-space: nowrap;
 `;
 
 export const CompanyLogo = styled.img`

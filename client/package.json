@@ -28,6 +28,7 @@
         "eslint-plugin-react": "^7.23.1",
         "fusioncharts": "^3.17.0",
         "google-map-react": "^2.1.10",
+        "http-proxy-middleware": "^2.0.1",
         "moment": "^2.29.1",
         "node-sass": "^5.0.0",
         "prop-types": "^15.7.2",
@@ -39,6 +40,7 @@
         "react-icons": "^4.2.0",
         "react-places-autocomplete": "^7.3.0",
         "react-query": "^3.16.1",
+        "react-responsive": "^9.0.0-beta.3",
         "react-router-dom": "^5.2.0",
         "react-scripts": "4.0.3",
         "recharts": "^2.0.9",
@@ -83,6 +85,5 @@
         "mongoose": "^5.12.7",
         "postinstall-postinstall": "^2.1.0",
         "prettier": "^2.2.1"
-    },
-    "proxy": "http://localhost:4000"
+    }
 }

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
 import useOuterClick from "../../utils/UseOuterClick";
-import { searchAssetTiingo } from "../../utils/StockApiConnectorTiingo";
+import { searchAssetFMP } from "../../utils/apis/StockApiConnectorFMP";
 import {
+    SearchSvg,
     SearchBar,
     SearchInput,
     Suggestions,
@@ -18,6 +20,8 @@ export default function AssetSearch(props) {
     const [results, setResults] = useState([]);
     const searchRef = useRef(null);
 
+    const [isSearch, setIsSearch] = useState(false);
+
     useOuterClick(searchRef, () => setQuerySearch(""));
 
     const handleSuggestionClick = (ticker) => {
@@ -25,11 +29,14 @@ export default function AssetSearch(props) {
         setQuerySearch("");
     };
 
+    const isTab = useMediaQuery({ query: "(max-width: 56.25em)" });
+
     useEffect(() => {
         async function fetchMyApi() {
             try {
                 if (querySearch.length !== 0) {
-                    const res = await searchAssetTiingo(querySearch, "50");
+                    const res = await searchAssetFMP(querySearch, 50);
+                    // console.log(res);
                     if (res.statusText === "OK") {
                         if (querySearch.length > 0) {
                             setResults(res.data);
@@ -46,62 +53,95 @@ export default function AssetSearch(props) {
     }, [querySearch]);
 
     return (
-        <SearchBar ref={searchRef}>
-            <SearchInput
-                type="text"
-                placeholder="Search by an asset name or an asset shortcut..."
-                value={querySearch}
-                id="query_search"
-                onChange={(e) => {
-                    setQuerySearch(e.target.value);
-                }}
-            />
-            {querySearch.length > 0 && (
-                <CloseSearch onClick={() => setQuerySearch("")} />
+        <>
+            {isTab && (
+                <SearchSvg
+                    type="button"
+                    onClick={() => {
+                        setIsSearch(true);
+                    }}
+                />
             )}
 
-            {querySearch.length > 0 && (
-                <Suggestions>
-                    {/* <span>Closest Search</span> */}
-                    {results.map((result) => {
-                        const { name, ticker } = result;
-                        return (
-                            <Suggestion
-                                key={`${name},${ticker}`}
-                                id={`${name},${ticker}`}
-                                onClick={() => {
-                                    handleSuggestionClick(ticker);
-                                }}
-                            >
-                                <span
-                                    style={{
-                                        width: "max-content",
-                                        textAlign: "match-parent",
-                                    }}
-                                >
-                                    <span
-                                        style={{
-                                            fontWeight: "400",
-                                            marginRight: ".5rem",
+            {(!isTab || isSearch) && (
+                <SearchBar ref={searchRef}>
+                    <SearchInput
+                        type="text"
+                        placeholder="Search for stocks by name or symbol"
+                        value={querySearch}
+                        id="query_search"
+                        onChange={(e) => {
+                            setQuerySearch(e.target.value);
+                        }}
+                    />
+                    {(querySearch.length > 0 || isSearch) && (
+                        <CloseSearch
+                            onClick={() => {
+                                setQuerySearch("");
+                                if (isSearch) {
+                                    setIsSearch(false);
+                                }
+                            }}
+                        />
+                    )}
+
+                    {querySearch.length > 0 && (
+                        <Suggestions>
+                            {/* <span>Closest Search</span> */}
+                            {results.map((result) => {
+                                const { name, symbol, exchangeShortName } =
+                                    result;
+                                return (
+                                    <Suggestion
+                                        key={`${name},${symbol}`}
+                                        id={`${name},${symbol}`}
+                                        onClick={() => {
+                                            handleSuggestionClick(symbol);
+                                            if (isSearch) {
+                                                setIsSearch(false);
+                                            }
                                         }}
                                     >
-                                        {name}
-                                    </span>{" "}
-                                    <span
-                                        style={{
-                                            fontSize: "1.4rem",
-                                            color: "rgb(var(--color-green-special))",
-                                        }}
-                                    >
-                                        {ticker}
-                                    </span>
-                                </span>{" "}
-                            </Suggestion>
-                        );
-                    })}
-                </Suggestions>
+                                        <span
+                                            style={{
+                                                width: "max-content",
+                                                textAlign: "match-parent",
+                                            }}
+                                        >
+                                            <span
+                                                style={{
+                                                    fontWeight: "400",
+                                                    marginRight: ".5rem",
+                                                }}
+                                            >
+                                                {name}
+                                            </span>{" "}
+                                            <span
+                                                style={{
+                                                    fontSize: "1.4rem",
+                                                    color: "rgb(var(--color-green-special))",
+                                                    marginRight: "1rem",
+                                                }}
+                                            >
+                                                {symbol}
+                                            </span>
+                                            <span
+                                                style={{
+                                                    fontSize: "1.4rem",
+                                                    color: "#109bf0",
+                                                }}
+                                            >
+                                                {exchangeShortName}
+                                            </span>
+                                        </span>{" "}
+                                    </Suggestion>
+                                );
+                            })}
+                        </Suggestions>
+                    )}
+                </SearchBar>
             )}
-        </SearchBar>
+        </>
     );
 }
 

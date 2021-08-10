@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
 import { Pie } from "@visx/shape";
 import { Group } from "@visx/group";
@@ -8,6 +9,8 @@ import { Text } from "@visx/text";
 
 import {
     UtilBtn,
+    ExpenseBox,
+    InfoBox,
     InfoRow,
     KeyInfo,
     RateChange,
@@ -28,8 +31,26 @@ export default function AssetExpenses({
     const [active, setActive] = useState(null);
     const [activeYear, setActiveYear] = useState(financeData.length - 1);
 
-    const width = 400;
-    const half = width / 2;
+    const isTinyPhone = useMediaQuery({ query: "(max-width: 25em)" });
+    const isPhone = useMediaQuery({ query: "(max-width: 37.5em)" });
+    const isTabLand = useMediaQuery({ query: "(max-width: 56.25em)" });
+
+    const pieWidth = () => {
+        if (isTinyPhone) {
+            return 290;
+        }
+        if (isPhone) {
+            return 300;
+        }
+        if (isTabLand) {
+            return 350;
+        }
+
+        return 400;
+    };
+    const half = pieWidth() / 2;
+
+    const correction = isTinyPhone ? 30 : 50;
 
     const formatExpenseData = (data) => {
         return Object.entries(data).map((entries) => {
@@ -74,48 +95,15 @@ export default function AssetExpenses({
         <>
             {isFinanceApiConsumed && isFinanceRateApiConsumed && (
                 <div>
-                    <div style={{ position: "relative" }}>
-                        <div
-                            style={{
-                                position: "absolute",
-                                right: "8rem",
-                                top: "8rem",
-                                display: "grid",
-                                gridTemplateColumns: "repeat(2,10rem)",
-                                gridTemplateRows: "repeat(4,5rem)",
-                                height: "max-content",
-                                width: "max-content",
-                                padding: "1rem",
-                            }}
-                        >
-                            {new Array(financeData.length)
-                                .fill(1)
-                                .map((el, idx) => {
-                                    return (
-                                        <UtilBtn
-                                            // eslint-disable-next-line react/no-array-index-key
-                                            key={idx}
-                                            onClick={() => {
-                                                setActiveYear(idx);
-                                            }}
-                                            style={{
-                                                backgroundColor:
-                                                    activeYear === idx &&
-                                                    "#e8f0fe",
-                                            }}
-                                            selected={activeYear === idx}
-                                        >
-                                            {parseInt(firstDate, 10) + idx}
-                                        </UtilBtn>
-                                    );
-                                })}
-                        </div>
+                    <ExpenseBox>
                         <svg
-                            width={450}
-                            height={450}
-                            style={{ marginLeft: "25rem" }}
+                            width={half * 2 + correction}
+                            height={half * 2 + correction}
                         >
-                            <Group top={225} left={225}>
+                            <Group
+                                top={half + correction / 2}
+                                left={half + correction / 2}
+                            >
                                 <Pie
                                     data={expenseData[activeYear]}
                                     pieValue={(data) => data.value}
@@ -130,7 +118,9 @@ export default function AssetExpenses({
                                         return half - size;
                                     }}
                                     padAngle={0.01}
-                                    style={{ transition: "all .5s" }}
+                                    style={{
+                                        transition: "all .5s",
+                                    }}
                                 >
                                     {(pie) => {
                                         return pie.arcs.map((arc) => {
@@ -223,9 +213,33 @@ export default function AssetExpenses({
                                 )}
                             </Group>
                         </svg>
-                    </div>
 
-                    <div>
+                        <div>
+                            {new Array(financeData.length)
+                                .fill(1)
+                                .map((el, idx) => {
+                                    return (
+                                        <UtilBtn
+                                            // eslint-disable-next-line react/no-array-index-key
+                                            key={idx}
+                                            onClick={() => {
+                                                setActiveYear(idx);
+                                            }}
+                                            style={{
+                                                backgroundColor:
+                                                    activeYear === idx &&
+                                                    "#e8f0fe",
+                                            }}
+                                            selected={activeYear === idx}
+                                        >
+                                            {parseInt(firstDate, 10) + idx}
+                                        </UtilBtn>
+                                    );
+                                })}
+                        </div>
+                    </ExpenseBox>
+
+                    <InfoBox>
                         <InfoRow style={{ borderTop: "none" }}>
                             <KeyInfo>(USD)</KeyInfo>
                             <YearInfo>
@@ -235,7 +249,11 @@ export default function AssetExpenses({
                                     {financeData[activeYear].date}
                                 </div>
                             </YearInfo>
-                            <span>Expense Statement year change</span>
+                            <span>
+                                {isPhone
+                                    ? `Year change`
+                                    : `Expense Statement year change`}
+                            </span>
                         </InfoRow>
 
                         <InfoRow>
@@ -548,7 +566,7 @@ export default function AssetExpenses({
                                 %
                             </RateChange>
                         </InfoRow>
-                    </div>
+                    </InfoBox>
                 </div>
             )}
         </>

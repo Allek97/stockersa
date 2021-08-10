@@ -21,4 +21,9 @@ export const AssetInfoStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 5rem;
+
+    @media only screen and (max-width: 46em) {
+        flex-direction: column;
+        align-items: flex-start;
+    } //736px
 `;

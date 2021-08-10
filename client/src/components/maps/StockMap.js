@@ -20,7 +20,7 @@ import { RiTimeFill } from "react-icons/ri";
 
 import Search from "./components/Search";
 
-import styleModest from "./styles/styleCustom2";
+import styleModest from "./styles/mapStyles/styleCustom2";
 import {
     MapInfoSearch,
     MapTitle,

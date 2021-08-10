@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
 export const InfoContainer = styled.div`
-    padding: 2rem;
+    flex: 1;
 
-    width: 55rem;
+    padding: 2rem;
+    max-width: 55rem;
 
     border-radius: 2rem;
 
     box-shadow: var(--shadow-dark);
 
     border: 1px solid #142d69;
+
+    @media only screen and (max-width: 75em) {
+        &:first-of-type {
+            margin-right: 3rem;
+            height: max-content;
+        }
+    }
+
+    @media only screen and (max-width: 37.5em) {
+        max-width: none;
+        margin-right: 0 !important;
+    }
 
     /* background-color: #142d69; */
 `;

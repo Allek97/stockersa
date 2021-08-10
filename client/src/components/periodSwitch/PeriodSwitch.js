@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-//TODOTODOTODOTODOTODOTODOTODOTODOTODO
-//TODOTODOTODOTODOTODOTODOTODOTODOTODO
-//TODOTODOTODOTODOTODOTODOTODOTODOTODO
-//TODOTODOTODOTODOTODOTODOTODOTODOTODO
-// FIX THE API CONSUMPTION AND APP LOADING AND ASSET FINANCE
+const PerdiodSwitchBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    max-width: 55rem;
+    width: 45%;
+
+    /* margin-left: auto; */
+
+    @media only screen and (max-width: 46em) {
+        max-width: 50rem;
+        width: 100%;
+    }
+`;
 
 export const StockPeriodBtn = styled.a`
     &,
@@ -72,15 +80,8 @@ export default function PeriodSwitch(props) {
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "space-around",
-                width: "50rem",
-                marginLeft: "auto",
-            }}
-        >
-            {/* <StockPeriodBtn
+        <PerdiodSwitchBox>
+            <StockPeriodBtn
                 isSelected={selectedPeriod[0]}
                 onClick={() => {
                     setDataPeriod("1D");
@@ -88,7 +89,7 @@ export default function PeriodSwitch(props) {
                 }}
             >
                 1D
-            </StockPeriodBtn> */}
+            </StockPeriodBtn>
             <StockPeriodBtn
                 isSelected={selectedPeriod[1]}
                 onClick={() => {
@@ -143,7 +144,7 @@ export default function PeriodSwitch(props) {
             >
                 5Y
             </StockPeriodBtn>
-        </div>
+        </PerdiodSwitchBox>
     );
 }
 

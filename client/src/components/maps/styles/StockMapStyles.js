@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const MapInfoSearch = styled.div`
-    display: flex;
+    /* display: flex; */
     max-width: 130rem;
     margin: 1rem;
 
     & > div:first-of-type {
-        margin-right: auto;
+        margin-bottom: 3rem;
+    }
+
+    @media only screen and (max-width: 37.5em) {
+        margin: 0 1rem;
     }
 `;
 
@@ -31,6 +35,14 @@ export const MapTitle = styled.div`
     text-align: center;
     font-size: 2.5rem;
     color: #f1f1f1;
+
+    @media only screen and (max-width: 37.5em) {
+        position: absolute;
+        bottom: 3rem;
+        right: 0rem;
+
+        width: 80%;
+    }
 `;
 
 export const InfoWindowStyle = styled.div`
@@ -71,7 +83,9 @@ export const SearchContainer = styled.div`
 
     display: block;
 
-    width: 40rem;
+    max-width: 47rem;
+    margin-right: 8rem;
+
     height: max-content;
 
     box-shadow: 2px 2px 30rem rgba(247, 247, 247, 0.3);
@@ -79,6 +93,14 @@ export const SearchContainer = styled.div`
     overflow: hidden;
 
     font-size: 1.3rem;
+
+    @media only screen and (max-width: 46em) {
+        margin-top: 10rem;
+    }
+
+    @media only screen and (max-width: 37.5em) {
+        margin-top: 0;
+    }
 
     .google-map-search-svg,
     .google-map-close-svg {
@@ -88,7 +110,7 @@ export const SearchContainer = styled.div`
         width: 1.8rem;
 
         /* fill: RGBA(var(--color-grey-dark)); */
-        fill: white;
+        fill: black;
     }
 
     .google-map-search-svg {
@@ -120,12 +142,12 @@ export const SearchBar = styled.input`
     border: none;
 
     /* background-color: white; */
-    background-color: #151535;
+    background-color: white;
 
     font-size: 1.5rem;
     font-family: "Lato", sans-serif;
     /* color: RGBA(var(--color-grey-dark)); */
-    color: white;
+    color: black;
     font-weight: 400;
 
     &:focus {
@@ -140,7 +162,7 @@ export const SearchBar = styled.input`
 
     &::-webkit-input-placeholder {
         /* color: RGBA(var(--color-grey-dark)); */
-        color: white;
+        color: rgba(var(--color-grey-dark-2));
     }
 
     /* &:before {

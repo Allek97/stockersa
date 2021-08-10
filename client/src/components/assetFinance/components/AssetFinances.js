@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
 import {
     ResponsiveContainer,
@@ -16,6 +17,7 @@ import {
     CustomToolTip,
     FinanceToolTip,
     UtilBtn,
+    InfoBox,
     InfoRow,
     KeyInfo,
     RateChange,
@@ -36,6 +38,7 @@ export default function AssetFinances({
     isFinanceApiConsumed,
     isFinanceRateApiConsumed,
 }) {
+    const isPhone = useMediaQuery({ query: "(max-width: 37.5em)" });
     return (
         <>
             {isFinanceApiConsumed && isFinanceRateApiConsumed && (
@@ -99,10 +102,6 @@ export default function AssetFinances({
                                         style={{
                                             backgroundColor:
                                                 activeYear === idx && "#e8f0fe",
-                                            marginRight:
-                                                idx !==
-                                                    financeData.length - 1 &&
-                                                "14.8rem",
                                         }}
                                         selected={activeYear === idx}
                                     >
@@ -112,7 +111,7 @@ export default function AssetFinances({
                             })}
                     </YearBox>
 
-                    <div>
+                    <InfoBox>
                         <InfoRow style={{ borderTop: "none" }}>
                             <KeyInfo>(USD)</KeyInfo>
                             <YearInfo>
@@ -122,7 +121,11 @@ export default function AssetFinances({
                                     {financeData[activeYear].date}
                                 </div>
                             </YearInfo>
-                            <span>Income Statement year change</span>
+                            <span>
+                                {isPhone
+                                    ? `Year change`
+                                    : `Income Statement year change`}
+                            </span>
                         </InfoRow>
 
                         <InfoRow>
@@ -404,7 +407,7 @@ export default function AssetFinances({
                                 %
                             </RateChange>
                         </InfoRow>
-                    </div>
+                    </InfoBox>
                 </>
             )}
         </>

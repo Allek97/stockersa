@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import Loading from "../../components/loading/PageLoading";
 import Graph from "../../components/graph/Graph";
@@ -9,7 +10,7 @@ import AssetKeyInfo from "../../components/assetKeyInfo/AssetKeyInfo";
 import AssetNews from "../../components/assetNews/AssetNews";
 import AssetFinance from "../../components/assetFinance/AssetFinance";
 import StockMap from "../../components/maps/StockMap";
-import UsePlaces from "../../components/maps/components/UsePlaces";
+// import UsePlaces from "../../components/maps/components/UsePlaces";
 
 import { ReactComponent as LogoSvg } from "../../assets/svgs/asset.svg";
 // import { ReactComponent as Computer } from "../../assets/svgs/computer.svg";
@@ -22,7 +23,7 @@ export default function StockPage() {
     const [dataPeriod, setDataPeriod] = useState("1Y");
     const [ticker, setTicker] = useState("FB");
     const [assetName, setAssetName] = useState("Searching...");
-    const [isTiingoApiConsumed, setIsTiingoApiConsumed] = useState(false);
+    const [isFMPApiConsumed, setIsFMPApiConsumed] = useState(false);
 
     // Utilisee pour calculer les ratios
     const [startClose, setStartClose] = useState();
@@ -45,9 +46,8 @@ export default function StockPage() {
 
                         <LogoName>Stockersa</LogoName>
                     </div>
-                    <nav>
-                        <AssetSearch setTicker={setTicker} />
-                    </nav>
+
+                    <AssetSearch setTicker={setTicker} />
                 </header>
 
                 <main className="stockpage-main">
@@ -66,8 +66,8 @@ export default function StockPage() {
                         </AssetInfoStyle>
                         <Graph
                             dataPeriod={dataPeriod}
-                            isTiingoApiConsumed={isTiingoApiConsumed}
-                            setIsTiingoApiConsumed={setIsTiingoApiConsumed}
+                            isFMPApiConsumed={isFMPApiConsumed}
+                            setIsFMPApiConsumed={setIsFMPApiConsumed}
                             ticker={ticker}
                             setStartClose={setStartClose}
                             setLastClose={setLastClose}
@@ -92,23 +92,7 @@ export default function StockPage() {
                             }}
                         /> */}
                     </section>
-                    {/* <section
-                        className="stockpage-main__map"
-                        style={{ marginBottom: "5rem" }}
-                    >
-                        <div>
-                            <h1
-                                style={{
-                                    textAlign: "center",
-                                    fontSize: "3rem",
-                                    padding: "1rem",
-                                    color: "white",
-                                }}
-                            >
-                                Stock exchanges around the world
-                            </h1>
-                        </div>
-                    </section> */}
+
                     <section className="stockpage-main__map">
                         <StockMap />
                         {/* <UsePlaces /> */}

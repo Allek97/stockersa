@@ -10,7 +10,7 @@ import AssetExpenses from "./components/AssetExpenses";
 import {
     getAssetFinanceFMP,
     getAssetFinanceRateFMP,
-} from "../../utils/StockApiConnectorFMP";
+} from "../../utils/apis/StockApiConnectorFMP";
 
 export default function AssetFinanace({ ticker }) {
     const [financeData, setFinanceData] = useState([]);
@@ -88,44 +88,45 @@ export default function AssetFinanace({ ticker }) {
     return (
         <>
             <Container>
-                <div style={{ display: "flex", marginBottom: "2.5rem" }}>
+                <div>
                     <Title>
                         {isFinance
                             ? "Financial performance"
-                            : "Expenses information"}
+                            : "Expense informations"}
                     </Title>
-                    <UtilBtn
-                        isFinance={isFinance}
-                        selected={isFinance}
-                        onClick={() => {
-                            setIsFinance(true);
-                        }}
-                        style={{
-                            marginLeft: "auto",
-                            marginRight: "1rem",
-                            backgroundColor: isFinance
-                                ? "#e8f0fe"
-                                : "transparent",
-                        }}
-                    >
-                        Finances
-                    </UtilBtn>
-                    <UtilBtn
-                        isFinance={isFinance}
-                        selected={!isFinance}
-                        onClick={() => {
-                            setIsFinance(false);
-                        }}
-                        style={{
-                            marginRight: "2px",
-                            marginLeft: "2px",
-                            backgroundColor: !isFinance
-                                ? "#e8f0fe"
-                                : "transparent",
-                        }}
-                    >
-                        Expenses
-                    </UtilBtn>
+                    <div>
+                        <UtilBtn
+                            isFinance={isFinance}
+                            selected={isFinance}
+                            onClick={() => {
+                                setIsFinance(true);
+                            }}
+                            style={{
+                                marginRight: "1rem",
+                                backgroundColor: isFinance
+                                    ? "#e8f0fe"
+                                    : "transparent",
+                            }}
+                        >
+                            Finances
+                        </UtilBtn>
+                        <UtilBtn
+                            isFinance={isFinance}
+                            selected={!isFinance}
+                            onClick={() => {
+                                setIsFinance(false);
+                            }}
+                            style={{
+                                marginRight: "2px",
+                                marginLeft: "2px",
+                                backgroundColor: !isFinance
+                                    ? "#e8f0fe"
+                                    : "transparent",
+                            }}
+                        >
+                            Expenses
+                        </UtilBtn>
+                    </div>
                 </div>
                 {isFinance ? (
                     <>

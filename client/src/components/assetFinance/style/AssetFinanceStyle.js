@@ -8,17 +8,33 @@ export const Container = styled.div`
 
     flex: 1;
 
-    padding: 2rem;
+    padding: 2rem 0;
 
     box-shadow: var(--shadow-dark);
     border: 1px solid #142d69;
 
     border-radius: 2em;
+
+    & > div:first-of-type {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2.5rem;
+        padding: 0 2rem;
+
+        @media only screen and (max-width: 25em) {
+            flex-direction: column;
+        }
+        div {
+            display: flex;
+
+            @media only screen and (max-width: 25em) {
+                margin-top: 1rem;
+            }
+        }
+    }
 `;
 
 export const Title = styled.h1`
-    width: 70%;
-
     font-size: 2.2rem;
     font-weight: 400;
     letter-spacing: 0;
@@ -52,12 +68,6 @@ export const UtilBtn = styled.a`
         align-items: center;
 
         transition: all 0.3s;
-        /* box-shadow: 1px 1px 3.2rem rgba(31, 55, 180, 0.3); */
-
-        /* height: 3.8rem; */
-        /* width: 3.8rem; */
-
-        /* border-radius: 18px; */
 
         background-color: ${(props) =>
             props.isFinance ? "#e8f0fe" : "transparent"};
@@ -67,9 +77,6 @@ export const UtilBtn = styled.a`
         height: max-content;
 
         border-radius: 3px;
-
-        /* background-color: transparent; */
-        overflow: hidden;
 
         text-decoration: none;
         font-size: 1.5rem;
@@ -106,16 +113,70 @@ export const FinanceToolTip = styled.div`
 
 //////////////////////////////////////////////////////////////////////////////////
 
+export const ExpenseBox = styled.div`
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 80rem;
+
+    margin: 0 auto 2rem;
+
+    @media only screen and (max-width: 37.5em) {
+        flex-direction: column;
+    }
+
+    /* svg {
+        width: 45rem;
+        height: 45rem;
+
+        @media only screen and (max-width: 56.25em) {
+            width: 50rem;
+            height: 50rem;
+        }
+
+        & > g:first-of-type {
+            transform: translate(22.5rem, 22.5rem);
+
+            @media only screen and (max-width: 56.25em) {
+                transform: translate(25rem, 25rem);
+            }
+        }
+    } */
+
+    & > div:first-of-type {
+        display: grid;
+        grid-template-columns: repeat(2, 10rem);
+        grid-template-rows: repeat(3, 5rem);
+        height: max-content;
+        width: max-content;
+
+        @media only screen and (max-width: 37.5em) {
+            display: flex;
+            justify-content: space-between;
+            width: 95%;
+            margin: 0 auto;
+            margin-bottom: 2rem;
+        }
+    }
+`;
+
+export const InfoBox = styled.div`
+    width: 95%;
+    margin: 0 auto;
+`;
+
 export const InfoRow = styled.div`
     display: flex;
 
     align-items: center;
 
-    border-top: 1px solid #43434d;
-
     padding: 3px 1rem;
-    margin: 0 4rem;
-    min-height: 4.3rem;
+    margin-bottom: 7px;
+
+    border-top: 1px solid #43434d;
 
     font-size: 1.5rem;
     font-weight: 600;
@@ -125,9 +186,8 @@ export const InfoRow = styled.div`
 `;
 
 export const KeyInfo = styled.span`
-    /* margin-right: 40rem; */
-
-    width: 26rem;
+    width: 50%;
+    margin-right: 1rem;
 
     color: #a5a5b1;
     line-height: 1.8rem;
@@ -155,11 +215,7 @@ export const SpecialKeyInfo = styled(KeyInfo)`
 `;
 
 export const RawValue = styled.span`
-    /* margin-left: 40%;
-    margin-right: auto; */
-
     margin-right: auto;
-    width: 26rem;
 
     text-align: right;
     font-size: 1.5rem;
@@ -215,6 +271,8 @@ export const YearInfo = styled(RawValue)`
         transition: transform 0.5s;
 
         transform: scale(0);
+
+        width: max-content;
         padding: 1rem;
 
         border-radius: 5px;
@@ -223,6 +281,10 @@ export const YearInfo = styled(RawValue)`
 
         font-size: 1.2rem;
         color: #fff;
+
+        @media only screen and (max-width: 25em) {
+            right: -10rem;
+        }
     }
 `;
 
@@ -230,10 +292,7 @@ export const RateChange = styled.span`
     display: flex;
     align-items: center;
 
-    width: min-content;
     padding: 5px 0.8rem;
-    margin-bottom: 7px;
-    margin-left: 2rem;
 
     border-radius: 8px;
 
@@ -276,11 +335,18 @@ export const RateChange = styled.span`
 
 export const YearBox = styled.div`
     display: flex;
+    justify-content: space-between;
 
     padding: 1rem;
-    margin-left: 7rem;
     margin-bottom: 1rem;
+    margin-left: 6.2%;
+    width: 82%;
 
-    /* &:not(:last-child) {
-    } */
+    @media only screen and (max-width: 37.5em) {
+        margin-left: 4%;
+    }
+
+    @media only screen and (max-width: 25em) {
+        margin-left: 1%;
+    }
 `;

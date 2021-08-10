@@ -1,18 +1,66 @@
 import styled, { keyframes } from "styled-components";
 
+import { AiOutlineFileSearch } from "react-icons/ai";
+
 import LoopSvg from "../../../assets/svgs/search.svg";
 import CloseSvg from "../../../assets/svgs/close.svg";
 import AssetSvg from "../../../assets/svgs/asset.svg";
 
-export const SearchBar = styled.div`
-    position: relative;
-    width: max-content;
+const loadAnim = keyframes`
+ 0% { transform: scale(1.2) }
+`;
 
-    /* box-shadow: 0 2rem 6rem rgba(20, 20, 26, 0.7); */
+export const SearchSvg = styled(AiOutlineFileSearch)`
+    fill: white;
+
+    height: 3.2rem;
+    width: 3.2rem;
+
+    transition: all 0.3s;
+
+    padding: 0.7rem;
+    margin-left: auto;
+
+    border-radius: 50%;
+
+    box-sizing: content-box;
+
+    animation: ${loadAnim} 0.5s ease-in-out 1;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: #0361d44e;
+    }
+`;
+
+export const SearchBar = styled.nav`
+    position: relative;
+
+    flex: 1;
+
+    max-width: 85rem;
+    margin-left: 20%;
 
     border-radius: 10rem;
 
     cursor: pointer;
+
+    @media only screen and (max-width: 56.25em) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+
+        width: 100vw;
+        height: 100vh;
+        max-width: none;
+        margin-left: 0;
+
+        background: white;
+
+        border-radius: 0;
+    }
 
     &::before {
         content: "";
@@ -31,6 +79,16 @@ export const SearchBar = styled.div`
         mask-image: url(${LoopSvg});
         mask-size: cover;
         mask-position: center;
+
+        @media only screen and (max-width: 56.25em) {
+            height: 3rem;
+            width: 3rem;
+
+            top: 2.3rem;
+            left: 2rem;
+
+            background-image: linear-gradient(to right, #5f6368, #5f6368);
+        }
     }
 `;
 
@@ -38,15 +96,13 @@ export const SearchInput = styled.input`
     display: block;
     transition: all 0.3s;
 
-    width: 90rem;
+    width: 100%;
     padding: 1.5rem 4rem;
-    margin-bottom: 5rem;
 
     background-color: #14141a;
 
     border-radius: 10rem;
     border: none;
-    border-bottom: 3px solid transparent;
 
     font-size: 1.7rem;
     font-family: "Roboto", sans-serif;
@@ -56,16 +112,28 @@ export const SearchInput = styled.input`
     &:focus {
         outline: none;
         box-shadow: 0 2rem 6rem rgba(20, 20, 26, 0.7);
-        /* box-shadow: var(--shadow-dark); */
-        /* border-bottom: 3px solid #2451b7; */
-    }
-
-    &:focus:invalid {
-        /* border-bottom: 3px solid rgba(204, 0, 0, 1); */
     }
 
     &::-webkit-input-placeholder {
-        color: rgb(var(--color-grey-dark));
+        color: rgb(var(--color-grey-dark-2));
+        font-weight: 400;
+    }
+
+    @media only screen and (max-width: 56.25em) {
+        padding: 2.7rem 6rem;
+
+        border-radius: 0;
+        border-bottom: 1px solid #dadce0;
+
+        background-color: transparent;
+
+        font-size: 1.9rem;
+        color: rgba(var(--color-grey-dark-3));
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
     }
 `;
 
@@ -116,6 +184,22 @@ export const Suggestions = styled.ul`
     &::-webkit-scrollbar-thumb:window-inactive {
         background-color: #2451b7;
     }
+
+    @media only screen and (max-width: 56.25em) {
+        position: relative;
+
+        top: 0;
+        left: 0;
+
+        max-height: 37.5rem;
+        border-radius: 0;
+
+        overflow-y: hidden;
+        box-shadow: none;
+
+        border-top: none;
+        border-radius: 0;
+    }
 `;
 
 export const Suggestion = styled.li`
@@ -140,10 +224,6 @@ export const Suggestion = styled.li`
 
     cursor: pointer;
 
-    /* &:not(:last-child) {
-        border-bottom: 1px solid rgba(var(--color-primary-light));
-    } */
-
     &::before {
         // FIXME: WHY DO I NEED TO ADD CONTENT FOR SVG TO BE DISPLAYED CORRECTELLLY, PK ?
         content: "content";
@@ -158,6 +238,13 @@ export const Suggestion = styled.li`
         margin-top: -2px;
         margin-right: 3px;
         margin-left: 8px;
+
+        @media only screen and (max-width: 56.25em) {
+            height: 2rem;
+            width: 2rem;
+            margin-right: 3rem;
+            margin-left: 2.5rem;
+        }
     }
 
     &:focus {
@@ -168,6 +255,22 @@ export const Suggestion = styled.li`
     &:hover {
         /* background-color: rgba(20, 20, 26, 0.2); */
         background-color: #2451b7;
+    }
+
+    @media only screen and (max-width: 56.25em) {
+        min-height: 7.5rem;
+
+        background-color: white;
+        color: rgba(var(--color-grey-dark-3));
+        font-size: 1.9rem;
+        font-weight: 400;
+
+        border-bottom: 1px solid #dadce0;
+
+        &:hover {
+            /* background-color: rgba(20, 20, 26, 0.2); */
+            background-color: #2450b77a;
+        }
     }
 `;
 
@@ -186,4 +289,14 @@ export const CloseSearch = styled.span`
     mask-image: url(${CloseSvg});
     mask-size: cover;
     mask-position: center;
+
+    @media only screen and (max-width: 56.25em) {
+        height: 2rem;
+        width: 2rem;
+
+        top: 3rem;
+        right: 2rem;
+
+        background-image: linear-gradient(to right, black, black);
+    }
 `;

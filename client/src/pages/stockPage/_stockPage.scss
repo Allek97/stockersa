@@ -1,6 +1,8 @@
+@import "../../abstracts/mixins";
+
 .stockpage {
     background-color: RGBA(var(--color-principal));
-    padding: 2rem 5rem 5rem;
+    padding: 2rem 0 5rem;
 }
 
 .stockpage-header {
@@ -11,13 +13,9 @@
     width: 95vw;
     margin: 0 auto 10rem;
 
-    div {
+    & > div:first-of-type {
         display: flex;
         align-items: center;
-    }
-
-    nav {
-        margin: 0 auto;
     }
 }
 
@@ -32,6 +30,10 @@
         box-shadow: var(--shadow-dark);
         border: 1px solid #142d69;
         border-radius: 3rem;
+
+        @include respond(phone) {
+            padding: 1.5rem;
+        }
     }
 
     &__news-finance {
@@ -39,12 +41,39 @@
         justify-content: space-between;
 
         margin-bottom: 5rem;
-        // max-width: 200rem;
+
+        @include respond(tab-land) {
+            flex-direction: column;
+        }
 
         & > div:first-of-type {
             flex: 1;
             max-width: 114rem;
-            margin-right: 5rem;
+            min-width: 87rem;
+
+            margin-right: 3rem;
+
+            @include respond(tab-land) {
+                order: 2;
+
+                max-width: none;
+                min-width: 0;
+                width: 100%;
+
+                margin: 0;
+            }
+        }
+        & > div:nth-child(2) {
+            @include respond(tab-land) {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 5rem;
+            }
+
+            @include respond(phone) {
+                flex-direction: column;
+                margin: 0 auto 5rem;
+            }
         }
     }
 

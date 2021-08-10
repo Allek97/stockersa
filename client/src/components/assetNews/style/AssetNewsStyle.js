@@ -18,8 +18,25 @@ export const NewsContainer = styled.div`
     & > div:first-of-type {
         display: flex;
 
+        @media only screen and (max-width: 37.5em) {
+            flex-direction: column;
+            align-items: flex-start;
+
+            & > h1:first-of-type {
+                max-width: 100%;
+                margin: 0 0 1rem;
+            }
+        }
+
         & > div:first-of-type {
             display: flex;
+
+            @media only screen and (max-width: 37.5em) {
+                margin: 0 0 2rem !important;
+                & > * {
+                    margin: 0 !important;
+                }
+            }
         }
     }
 `;
@@ -44,24 +61,37 @@ export const NewsRow = styled.div`
 
     border-top: 1px solid #dadce0;
 
+    @media only screen and (max-width: 37.5em) {
+        flex-direction: column;
+    }
+
     .news-info {
         flex: 1;
         margin-right: 5rem;
 
         & > div:first-of-type {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 1rem;
         }
         & > div:nth-child(2) {
             display: flex;
             flex-direction: column;
         }
+
+        @media only screen and (max-width: 37.5em) {
+            margin: 0;
+        }
     }
 
-    .new-thumbnail {
+    .news-thumbnail {
         overflow: hidden;
         border-radius: 1rem;
+
+        @media only screen and (max-width: 37.5em) {
+            order: -1;
+            margin: 0 auto 2rem;
+        }
     }
 `;
 
@@ -126,7 +156,6 @@ export const StockSymbol = styled.div`
     width: max-content;
     height: max-content;
     margin-left: auto;
-    align-self: flex-end;
 
     border-radius: 2px;
 
@@ -151,6 +180,11 @@ export const NewsImage = styled.img`
 
     &:hover {
         filter: brightness(1.2);
+    }
+
+    @media only screen and (max-width: 37.5em) {
+        height: 25rem;
+        width: 100%;
     }
 `;
 

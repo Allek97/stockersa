@@ -1,16 +1,23 @@
 .asset-info {
     transition: all 1s;
+    margin-right: 2rem;
 
-    div:first-of-type {
-        display: flex;
+    @media only screen and (max-width: 46em) {
+        margin-bottom: 4rem;
     }
 
-    div:nth-child(2) {
+    & > div:first-of-type {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    & > div:nth-child(2) {
         display: flex;
         align-items: flex-end;
+        flex-wrap: wrap;
 
         & > span:first-of-type {
-            font-size: 4.4rem;
+            font-size: 4.2rem;
             font-weight: 400;
             letter-spacing: 0;
             line-height: 5.2rem;

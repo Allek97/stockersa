@@ -12,7 +12,7 @@ import {
 import "./_assetInfo.scss";
 
 import { dateLastRefresh } from "../../utils/DateFunctions";
-import { searchAssetInfoTiingo } from "../../utils/StockApiConnectorTiingo";
+import { getAssetInfoFMP } from "../../utils/apis/StockApiConnectorFMP";
 
 export default function AssetInfo({
     ticker,
@@ -41,6 +41,9 @@ export default function AssetInfo({
     const getPeriodIndicator = (period) => {
         let result;
         switch (period) {
+            case "1D":
+                result = "Today";
+                break;
             case "1W":
                 result = "Week";
                 break;
@@ -78,13 +81,20 @@ export default function AssetInfo({
     useEffect(() => {
         async function fetchMyApi() {
             try {
-                const res = await searchAssetInfoTiingo(ticker);
+                const res = await getAssetInfoFMP(ticker);
+
+                console.log(res);
 
                 const { data } = res;
-                const { name, exchangeCode } = data;
-                if (res.statusText === "OK" && name && exchangeCode) {
-                    setAssetName(name);
-                    setAssetEC(exchangeCode);
+                const { companyName, exchangeShortName } = data[0];
+
+                if (
+                    res.statusText === "OK" &&
+                    companyName &&
+                    exchangeShortName
+                ) {
+                    setAssetName(companyName);
+                    setAssetEC(exchangeShortName);
                     setIsApiConsumed(true);
                 } else {
                     setAssetName("No information found, try another asset !");
@@ -105,19 +115,25 @@ export default function AssetInfo({
     return (
         <>
             {isApiConsumed && (
-                <div className="asset-info">
+                <article className="asset-info">
                     <div>
-                        <AssetNameHeading>{assetName}.</AssetNameHeading>
+                        <AssetNameHeading>{assetName}</AssetNameHeading>
                         <StockSymbol state={state}>{ticker}</StockSymbol>
                     </div>
 
                     <div>
-                        <span>${lastClose}</span>
-                        <RateChange state={state}>{rate}%</RateChange>
-                        <RawChange state={state}>
-                            {state === "increase" ? "+" : "-"}
-                            {change} {periodIndicator}
-                        </RawChange>
+                        <span style={{ marginRight: "2rem" }}>
+                            ${lastClose.toFixed(2)}
+                        </span>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                            <RateChange state={state}>
+                                {rate.toFixed(2)}%
+                            </RateChange>
+                            <RawChange state={state}>
+                                {state === "increase" ? "+" : "-"}
+                                {change.toFixed(2)} {periodIndicator}
+                            </RawChange>
+                        </div>
                     </div>
                     {/* <CompanyLogo
                         src="https://financialmodelingprep.com/image-stock/AAPL.png"
@@ -128,7 +144,7 @@ export default function AssetInfo({
                         Last Refreshed: {dateLastRefresh(lastDate)} · USD ·
                         {assetEC}
                     </LastClose>
-                </div>
+                </article>
             )}
         </>
     );

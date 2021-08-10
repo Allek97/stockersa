@@ -11,14 +11,14 @@ const loadAnim = keyframes`
 `;
 
 export const SearchSvg = styled(AiOutlineFileSearch)`
-    fill: white;
+    fill: #016ce9;
 
     height: 3.2rem;
     width: 3.2rem;
 
     transition: all 0.3s;
 
-    padding: 0.7rem;
+    /* padding: 0.7rem; */
     margin-left: auto;
 
     border-radius: 50%;
@@ -29,8 +29,11 @@ export const SearchSvg = styled(AiOutlineFileSearch)`
 
     cursor: pointer;
 
+    box-shadow: 0 2rem 6rem #016de942;
+
+    &:focus,
     &:hover {
-        background-color: #0361d44e;
+        transform: scale(1.1);
     }
 `;
 
@@ -38,6 +41,7 @@ export const SearchBar = styled.nav`
     position: relative;
 
     flex: 1;
+    transition: all 1.3s;
 
     max-width: 85rem;
     margin-left: 20%;

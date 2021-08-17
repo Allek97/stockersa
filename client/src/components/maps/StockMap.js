@@ -4,6 +4,7 @@
 // NOTE: https://www.youtube.com/watch?v=WZcxJGmLbSo
 
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import {
     GoogleMap,
@@ -48,7 +49,7 @@ const mapContainerStyle = {
 // };
 
 // const libraries = ["places"];
-export default function StockMap() {
+export default function StockMap({ assetAddress, assetName }) {
     const [libraries] = useState(["places"]);
 
     const { isLoaded, loadError } = useLoadScript({
@@ -73,6 +74,12 @@ export default function StockMap() {
     });
     const [searchAddress, setSearchAddress] = useState("");
     const [isSearchMarkerVisible, setIsSearchMarkerVisible] = useState(false);
+    // NOTE: hooks for the searched asset
+    const [assetCoordinates, setAssetCoordinates] = useState({
+        lat: 0,
+        lng: 0,
+    });
+    const [isAssetMarkerVisible, setIsAssetMarkerVisible] = useState(false);
 
     const [zoom, setZoom] = useState(13);
 
@@ -138,6 +145,9 @@ export default function StockMap() {
                         setIsSearchMarkerVisible={setIsSearchMarkerVisible}
                         setCenter={setCenter}
                         setZoom={setZoom}
+                        assetAddress={assetAddress}
+                        setAssetCoordinates={setAssetCoordinates}
+                        setIsAssetMarkerVisible={setIsAssetMarkerVisible}
                     />
                 </MapInfoSearch>
                 <StreetViewPanorama options={panoramaOptions} />
@@ -263,6 +273,26 @@ export default function StockMap() {
                         }}
                     />
                 )}
+                {isAssetMarkerVisible && (
+                    <Marker
+                        position={{
+                            lat: assetCoordinates.lat,
+                            lng: assetCoordinates.lng,
+                        }}
+                        icon={{
+                            url: require("../../assets/imgs/headquarters.png")
+                                .default,
+                            scaledSize: new window.google.maps.Size(40, 40),
+                        }}
+                        title={`${assetName} || ${assetAddress}`}
+                        onClick={() => {
+                            setCenter({
+                                lat: assetCoordinates.lat,
+                                lng: assetCoordinates.lng,
+                            });
+                        }}
+                    />
+                )}
             </GoogleMap>
         );
     };
@@ -279,18 +309,7 @@ export default function StockMap() {
 
 //NOTE: Search
 
-// StockMap.propTypes = {
-//     startLocation: PropTypes.shape({
-//         description: PropTypes.string.isRequired,
-//         coordinates: PropT.lats.arrayOf(PropTypes.number.isRequired).isRequired,
-//     }).isRequired,
-
-//     locations: PropTypes.arrayOf(
-//         PropTypes.shape({
-//             coordinates: PropT.lats.arrayOf(PropTypes.number.isRequired)
-//                 .isRequired,
-//             description: PropTypes.string.isRequired,
-//             day: PropTypes.number.isRequired,
-//         })
-//     ).isRequired,
-// };
+StockMap.propTypes = {
+    assetAddress: PropTypes.string.isRequired,
+    assetName: PropTypes.string.isRequired,
+};

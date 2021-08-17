@@ -27,3 +27,45 @@ export const AssetInfoStyle = styled.div`
         align-items: flex-start;
     } //736px
 `;
+
+export const Btn = styled.a`
+    &,
+    &:link,
+    &:visited {
+        position: relative;
+
+        display: inline-block;
+
+        transition: all 0.2s;
+
+        padding: 1.2rem 3rem;
+        margin-left: 2rem;
+
+        box-shadow: 1px 1px 32px 0 RGBA(41 99 221 / 50%);
+        border-radius: 10rem;
+
+        background-color: #0451b4;
+
+        font-size: 1.4rem;
+        text-decoration: none;
+        text-align: center;
+        font-family: inherit;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+    }
+
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: 0 0.5rem 1rem RGBA(var(--color-black), 0.2);
+    }
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+
+    &:not(:last-child) {
+        margin-right: 2rem;
+    }
+`;

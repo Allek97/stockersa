@@ -16,7 +16,7 @@ import {
 } from "./style/AssetKeyInfoStyle";
 
 export default function AssetKeyInfo(props) {
-    const { ticker } = props;
+    const { ticker, setAssetAddress } = props;
 
     const [isInfoApiConsumed, setIsInfoApiConsumed] = useState(false);
     const [isQuoteApiConsumed, setIsQuoteApiConsumed] = useState(false);
@@ -40,9 +40,26 @@ export default function AssetKeyInfo(props) {
 
                 const { status, data } = res;
 
+                console.log(data[0]);
                 if (status === 200) {
                     setAssetInfo(data[0]);
+                    if (data[0].address) {
+                        const fullAddress = `${data[0].address || ""}, ${
+                            data[0].city || ""
+                        } , ${data[0].state || ""} ${
+                            convertCodeCountry(data[0].country.toUpperCase()) ||
+                            ""
+                        }
+                        `;
+                        console.log(fullAddress);
+                        setAssetAddress(fullAddress);
+                    } else {
+                        setAssetAddress(
+                            "Can't find the address of the current asset !"
+                        );
+                    }
                 }
+
                 setIsInfoApiConsumed(true);
             } catch (err) {
                 console.log(err);
@@ -64,6 +81,7 @@ export default function AssetKeyInfo(props) {
 
                 const { status, data } = res;
                 // console.log(res);
+
                 if (status === 200) {
                     setAssetQuote(data[0]);
                 }
@@ -94,7 +112,7 @@ export default function AssetKeyInfo(props) {
 
         return "N/A";
     }
-
+    // TODO: I could replace all this function with ||
     function teriaryAssetQuote(field) {
         if (assetQuote) {
             if (
@@ -261,7 +279,21 @@ export default function AssetKeyInfo(props) {
                                     )}
                                 </LinkInfo>
                             ) : (
-                                "N/A"
+                                <LinkInfo>
+                                    {teriaryAssetInfo("address") === "Valid" &&
+                                        assetInfo.address}
+                                    <br />
+                                    {teriaryAssetInfo("city") === "Valid" &&
+                                        assetInfo.city.toLowerCase()}
+                                    ,{" "}
+                                    {teriaryAssetInfo("state") === "Valid" &&
+                                        assetInfo.state.toLowerCase()}
+                                    <br />
+                                    {teriaryAssetInfo("country") === "Valid" &&
+                                        convertCodeCountry(
+                                            assetInfo.country.toUpperCase()
+                                        )}
+                                </LinkInfo>
                             )}
                         </InfoRow>
                         <InfoRow>
@@ -317,4 +349,5 @@ export default function AssetKeyInfo(props) {
 
 AssetKeyInfo.propTypes = {
     ticker: PropTypes.string.isRequired,
+    setAssetAddress: PropTypes.func.isRequired,
 };

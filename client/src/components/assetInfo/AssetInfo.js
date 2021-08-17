@@ -86,6 +86,15 @@ export default function AssetInfo({
                 console.log(res);
 
                 const { data } = res;
+
+                if (!data[0]) {
+                    setAssetName(
+                        "Informations about this ticker are incomplete, please try another asset !"
+                    );
+                    setAssetEC("N/A");
+                    return;
+                }
+
                 const { companyName, exchangeShortName } = data[0];
 
                 if (
@@ -96,9 +105,6 @@ export default function AssetInfo({
                     setAssetName(companyName);
                     setAssetEC(exchangeShortName);
                     setIsApiConsumed(true);
-                } else {
-                    setAssetName("No information found, try another asset !");
-                    setAssetEC("...");
                 }
             } catch (err) {
                 console.log(err);

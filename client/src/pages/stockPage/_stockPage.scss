@@ -13,9 +13,17 @@
     width: 95vw;
     margin: 0 auto 10rem;
 
-    & > div:first-of-type {
-        display: flex;
-        align-items: center;
+    & > a:first-of-type {
+        text-decoration: none;
+        margin-right: 15%;
+
+        @include respond(tab-port) {
+            margin-right: 5%;
+        }
+        & > div:first-of-type {
+            display: flex;
+            align-items: center;
+        }
     }
 }
 

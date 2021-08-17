@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 /* eslint-disable camelcase */
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
 import usePlacesAutocomplete, {
@@ -28,6 +28,9 @@ const Search = (props) => {
         setIsSearchMarkerVisible,
         setCenter,
         setZoom,
+        assetAddress,
+        setAssetCoordinates,
+        setIsAssetMarkerVisible,
     } = props;
 
     const {
@@ -55,6 +58,31 @@ const Search = (props) => {
         // Update the keyword of the input element
         setValue(e.target.value);
     };
+
+    useEffect(() => {
+        async function getCoordinates() {
+            try {
+                if (assetAddress) {
+                    const results = await getGeocode({ address: assetAddress });
+                    const { lat, lng } = await getLatLng(results[0]);
+
+                    setAssetCoordinates({ lat, lng });
+                    setIsAssetMarkerVisible(true);
+                    setZoom((current) => {
+                        if (current === 12) {
+                            return 13;
+                        }
+                        return 12;
+                    });
+                    setCenter({ lat, lng });
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        getCoordinates();
+    }, [assetAddress]);
 
     const handleSelect =
         ({ description }) =>
@@ -170,6 +198,9 @@ Search.propTypes = {
     setIsSearchMarkerVisible: PropTypes.func.isRequired,
     setCenter: PropTypes.func.isRequired,
     setZoom: PropTypes.func.isRequired,
+    assetAddress: PropTypes.string.isRequired,
+    setAssetCoordinates: PropTypes.func.isRequired,
+    setIsAssetMarkerVisible: PropTypes.func.isRequired,
 };
 
 export default Search;

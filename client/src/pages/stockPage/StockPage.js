@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useMediaQuery } from "react-responsive";
 
 import Loading from "../../components/loading/PageLoading";
 import Graph from "../../components/graph/Graph";
@@ -15,7 +14,7 @@ import StockMap from "../../components/maps/StockMap";
 import { ReactComponent as LogoSvg } from "../../assets/svgs/asset.svg";
 // import { ReactComponent as Computer } from "../../assets/svgs/computer.svg";
 
-import { LogoName, AssetInfoStyle } from "./StockPageStyle";
+import { LogoName, AssetInfoStyle, Btn } from "./StockPageStyle";
 
 import "./_stockPage.scss";
 
@@ -23,6 +22,7 @@ export default function StockPage() {
     const [dataPeriod, setDataPeriod] = useState("1Y");
     const [ticker, setTicker] = useState("FB");
     const [assetName, setAssetName] = useState("Searching...");
+    const [assetAddress, setAssetAddress] = useState("");
     const [isFMPApiConsumed, setIsFMPApiConsumed] = useState(false);
 
     // Utilisee pour calculer les ratios
@@ -36,18 +36,20 @@ export default function StockPage() {
             <Loading loadingTime={1500} />
             <div className="stockpage">
                 <header className="stockpage-header">
-                    <div>
-                        <LogoSvg
-                            style={{
-                                height: "4.3rem",
-                                width: "4.3rem",
-                            }}
-                        />
+                    <a href="/">
+                        <div>
+                            <LogoSvg
+                                style={{
+                                    height: "4.3rem",
+                                    width: "4.3rem",
+                                }}
+                            />
 
-                        <LogoName>Stockersa</LogoName>
-                    </div>
-
+                            <LogoName>Stockersa</LogoName>
+                        </div>
+                    </a>
                     <AssetSearch setTicker={setTicker} />
+                    <Btn href="/">Homepage</Btn>
                 </header>
 
                 <main className="stockpage-main">
@@ -81,7 +83,10 @@ export default function StockPage() {
                             <AssetFinance ticker={ticker} />
                         </div>
 
-                        <AssetKeyInfo ticker={ticker} />
+                        <AssetKeyInfo
+                            ticker={ticker}
+                            setAssetAddress={setAssetAddress}
+                        />
 
                         {/* <Computer /> */}
                         {/* <img
@@ -94,7 +99,10 @@ export default function StockPage() {
                     </section>
 
                     <section className="stockpage-main__map">
-                        <StockMap />
+                        <StockMap
+                            assetName={assetName}
+                            assetAddress={assetAddress}
+                        />
                         {/* <UsePlaces /> */}
                     </section>
                 </main>

@@ -92,7 +92,7 @@ export const SearchContainer = styled.div`
 
     overflow: hidden;
 
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 
     @media only screen and (max-width: 46em) {
         margin-top: 10rem;
@@ -114,12 +114,12 @@ export const SearchContainer = styled.div`
     }
 
     .google-map-search-svg {
-        top: 1.15rem;
+        top: 1.12rem;
         left: 5px;
     }
 
     .google-map-close-svg {
-        top: 1.15rem;
+        top: 1.12rem;
         right: 5px;
 
         cursor: pointer;
@@ -136,45 +136,24 @@ export const SearchBar = styled.input`
 
     background-color: RGBA(white, 0.75);
 
-    /* box-shadow: var(--shadow-dark); */
-
     border-radius: 8px;
     border: none;
 
-    /* background-color: white; */
     background-color: white;
 
-    font-size: 1.5rem;
-    font-family: "Lato", sans-serif;
-    /* color: RGBA(var(--color-grey-dark)); */
     color: black;
+    font-size: 1.4rem;
     font-weight: 400;
 
     &:focus {
         outline: none;
-        /* box-shadow: 0 2rem 20rem rgba(0, 0, 0, 0.3); */
-        /* border-bottom: 3px solid RGBA(var(--color-primary-light)); */
     }
-    /* 
-    &:focus:invalid {
-        border-bottom: 3px solid RGBA(204, 0, 0, 1);
-    } */
 
     &::-webkit-input-placeholder {
-        /* color: RGBA(var(--color-grey-dark)); */
-        color: rgba(var(--color-grey-dark-2));
+        font-family: Poppins;
+        font-weight: 400;
+        color: rgb(var(--color-grey-dark-2));
     }
-
-    /* &:before {
-        content: "";
-
-        display: block;
-
-        height: 2rem;
-        width: 2rem;
-
-        background-image: url(${(props) => props.svg});
-    } */
 `;
 
 export const SearchSuggestionsList = styled.ul`
@@ -198,11 +177,7 @@ export const SearchSuggestion = styled.a`
     padding: 1rem;
 
     list-style: none;
-
-    /* font-size: 1.5rem; */
-    font-family: "Lato", sans-serif;
     line-height: 1.6rem;
-
     color: #151535;
     font-weight: 400;
 
@@ -221,7 +196,7 @@ export const SearchSuggestion = styled.a`
         width: 1.5rem;
         height: 1.5rem;
 
-        margin-right: 2rem;
+        margin-right: 1.5rem;
         fill: #151535;
     }
 

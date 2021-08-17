@@ -10,12 +10,16 @@ import {
 import "./App.scss";
 
 import StockPage from "./pages/stockPage/StockPage";
+import Homepage from "./pages/homepage/HomePage";
 
 function App() {
     return (
-        <div>
-            <StockPage />
-        </div>
+        <Router>
+            <Switch>
+                <Route exact path="/" render={() => <Homepage />} />
+                <Route exact path="/stocks" render={() => <StockPage />} />
+            </Switch>
+        </Router>
     );
 }
 

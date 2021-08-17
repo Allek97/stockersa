@@ -84,7 +84,7 @@ const Ball1 = styled.div`
     width: 1.5rem;
     height: 1.5rem;
 
-    background-color: RGBA(var(--color-primary-light), 1);
+    background-color: RGBA(var(--color-principal), 1);
 
     border-radius: 50%;
 

@@ -31,6 +31,10 @@ export const SearchSvg = styled(AiOutlineFileSearch)`
 
     box-shadow: 0 2rem 6rem #016de942;
 
+    filter: brightness(1.3);
+
+    align-self: center;
+
     &:focus,
     &:hover {
         transform: scale(1.1);
@@ -44,7 +48,7 @@ export const SearchBar = styled.nav`
     transition: all 1.3s;
 
     max-width: 85rem;
-    margin-left: 20%;
+    margin-left: auto;
 
     border-radius: 10rem;
 
@@ -121,6 +125,7 @@ export const SearchInput = styled.input`
     &::-webkit-input-placeholder {
         color: rgb(var(--color-grey-dark-2));
         font-weight: 400;
+        font-family: Poppins;
     }
 
     @media only screen and (max-width: 56.25em) {

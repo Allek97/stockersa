@@ -15,6 +15,11 @@ export const Container = styled.div`
     width: 95vw;
     padding: 10rem 0 5rem;
     overflow: hidden;
+
+    @media only screen and (max-width: 56.25em) {
+        max-width: 60rem;
+        margin: 0 auto;
+    }
 `;
 
 export const Box = styled.div`
@@ -29,9 +34,9 @@ export const List = styled.ul`
 
     list-style: none;
 
-    animation: ${scroll} 20s linear infinite forwards;
+    animation: ${scroll} 20s linear infinite;
     &:first-of-type {
-        margin-left: -126%;
+        margin-left: -145.5rem; // NOTE: The width of the List below
     }
 `;
 
@@ -92,7 +97,6 @@ export const AssetSvg = styled.li`
 
     /* width: 15rem;
     mask-position: center; */
-    ${(props) => handleAssetFit(props.assetFit)}
 
     background-image: linear-gradient(to right, white, white);
     mask-image: url(${(props) => props.svg});
@@ -100,4 +104,6 @@ export const AssetSvg = styled.li`
     mask-repeat: no-repeat;
 
     background-color: red;
+
+    ${(props) => handleAssetFit(props.assetFit)}
 `;

@@ -74,6 +74,23 @@ export const LogoName = styled.h1`
     color: transparent;
 `;
 
+export const Tag = styled.span`
+    display: block;
+    padding: 0.7rem 1.4rem;
+    margin-bottom: 2rem;
+    width: max-content;
+    background: rgba(var(--color-primary-light));
+    border-radius: 10rem;
+
+    filter: brightness(1.05);
+
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+
+    color: #fff;
+`;
+
 export const HeroArticle = styled.article`
     display: flex;
     align-items: flex-start;
@@ -81,13 +98,23 @@ export const HeroArticle = styled.article`
 
     height: 88%;
 
+    @media only screen and (max-width: 59.4em) {
+        align-items: center;
+    }
     @media only screen and (max-width: 56.25em) {
-        margin-top: 5rem;
+        flex-direction: column;
     }
 
     & > div:first-of-type {
         display: block;
         max-width: 50rem;
+        width: 50%;
+
+        @media only screen and (max-width: 56.25em) {
+            margin-bottom: 5rem;
+            width: 100%;
+            max-width: none;
+        }
 
         h1 {
             margin-bottom: 2rem;
@@ -109,29 +136,80 @@ export const HeroArticle = styled.article`
         }
     }
 
-    & > div:nth-child(2) {
-        flex: 1;
+    svg {
         margin-right: -3rem;
-        svg {
-            max-width: 60rem;
-            float: right;
+        max-width: 60rem;
+        width: 55%;
+
+        @media only screen and (max-width: 56.25em) {
+            margin-right: 0;
+            width: 100%;
+            max-width: none;
         }
     }
 `;
 
-export const Tag = styled.span`
-    display: block;
-    padding: 0.7rem 1.4rem;
-    margin-bottom: 2rem;
-    width: max-content;
-    background: rgba(var(--color-primary-light));
-    border-radius: 10rem;
+export const ResponsiveArticle = styled.article`
+    display: flex;
+    justify-content: space-between;
+    max-width: 115rem;
+    width: 92vw;
+    margin: 0 auto;
+    padding: 12rem 0 0;
 
-    filter: brightness(1.05);
+    @media only screen and (max-width: 56.25em) {
+        max-width: 60rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-align: center;
+    img {
+        max-width: 50rem;
+        width: 50%;
+        margin-left: -14rem;
+        padding-left: 3rem;
 
-    color: #fff;
+        @media only screen and (max-width: 56.25em) {
+            max-width: none;
+            width: 120%;
+            order: 2;
+        }
+    }
+
+    div {
+        display: block;
+        max-width: 60rem;
+        width: 60%;
+
+        @media only screen and (max-width: 56.25em) {
+            max-width: none;
+            width: 100%;
+            margin-bottom: 5rem;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+
+            font-size: 3.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            line-height: 4rem;
+            text-transform: capitalize;
+            color: black;
+        }
+
+        h3 {
+            margin-bottom: 2rem;
+            font-size: 1.9rem;
+            font-weight: 400;
+            line-height: 3rem;
+            color: black;
+
+            span {
+                color: RGBA(var(--color-primary-light));
+                font-weight: 600;
+            }
+        }
+    }
 `;

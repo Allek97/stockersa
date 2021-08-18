@@ -9,6 +9,7 @@ import AssetKeyInfo from "../../components/assetKeyInfo/AssetKeyInfo";
 import AssetNews from "../../components/assetNews/AssetNews";
 import AssetFinance from "../../components/assetFinance/AssetFinance";
 import StockMap from "../../components/maps/StockMap";
+import Footer from "../../components/footer/Footer";
 // import UsePlaces from "../../components/maps/components/UsePlaces";
 
 import { ReactComponent as LogoSvg } from "../../assets/svgs/asset.svg";
@@ -106,6 +107,7 @@ export default function StockPage() {
                         {/* <UsePlaces /> */}
                     </section>
                 </main>
+                <Footer />
             </div>
         </>
     );

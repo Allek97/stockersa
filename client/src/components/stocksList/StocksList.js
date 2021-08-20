@@ -15,9 +15,9 @@ import pfizer from "../../assets/svgs/stocks/pfizer.svg";
 import bombardier from "../../assets/svgs/stocks/bombardier.svg";
 import microsoft from "../../assets/svgs/stocks/microsoft.svg";
 
-export default function stocksList() {
+export default function stocksList({ reference }) {
     return (
-        <div>
+        <div ref={reference}>
             <StocksList>
                 <StockSvg svg={apple} stockName="apple" />
                 <StockSvg svg={bankOfAmerica} stockName="bankOfAmerica" />

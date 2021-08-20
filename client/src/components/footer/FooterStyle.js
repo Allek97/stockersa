@@ -68,11 +68,11 @@ export const SocialList = styled.ul`
     }
 
     li {
-        opacity: 0;
+        opacity: 1;
         height: 2.9rem;
         width: 2.9rem;
 
-        animation: ${slideUp} 0.5s ease-in-out 0.3s forwards;
+        /* animation: ${slideUp} 0.5s ease-in-out 0.3s forwards; */
 
         svg {
             transition: all 0.2s;

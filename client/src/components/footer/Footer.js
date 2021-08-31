@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import {
     FaTwitterSquare,
@@ -6,20 +6,24 @@ import {
     FaLinkedin,
     FaGithubSquare,
 } from "react-icons/fa";
-
 import { BsFillPersonLinesFill } from "react-icons/bs";
 
 import { Container, SocialList, SideLinkSvg } from "./FooterStyle";
+
+import onScreenIntersection from "../../utils/onScreenIntersection";
 
 export default function Footer() {
     const socialSvgStyle = {
         height: "100%",
         width: "100%",
     };
+
+    const footerRef = useRef();
+    const footerView = onScreenIntersection(footerRef, -50, false, 10);
     return (
-        <Container>
+        <Container ref={footerRef} animate={footerView}>
             <article>
-                <SocialList>
+                <SocialList animate={footerView}>
                     <li>
                         <SideLinkSvg href="/">
                             <FaTwitterSquare style={socialSvgStyle} />

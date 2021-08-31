@@ -243,6 +243,31 @@ const StockAndExchangeSection = styled.section`
         max-width: 115rem;
         width: 92vw;
         margin: 0 auto;
+
+        div:first-of-type {
+            transition: all 1s;
+            opacity: 0;
+            transform: ${(props) =>
+                props.isTabLand ? "translateY(-50%)" : "translateY(-80%)"};
+
+            ${(props) =>
+                props.animateText &&
+                css`
+                    animation: ${fadeVertically} 0.6s ease-out 0.1s 1 forwards;
+                `};
+        }
+
+        div:nth-of-type(2) {
+            transition: all 1s;
+            opacity: 0;
+            transform: translateY(100%);
+
+            ${(props) =>
+                props.animateList &&
+                css`
+                    animation: ${fadeVertically} 0.65s ease-out 0.1s 1 forwards;
+                `};
+        }
         h1 {
             margin-bottom: 3rem;
             font-size: 3.2rem;
@@ -278,33 +303,6 @@ const StockAndExchangeSection = styled.section`
 export const StocksSection = styled(StockAndExchangeSection)`
     h3 {
         max-width: 75rem;
-    }
-
-    div:first-of-type {
-        div:first-of-type {
-            transition: all 1s;
-            opacity: 0;
-            transform: ${(props) =>
-                props.isTabLand ? "translateY(-50%)" : "translateY(-80%)"};
-
-            ${(props) =>
-                props.animateText &&
-                css`
-                    animation: ${fadeVertically} 0.6s ease-out 0.1s 1 forwards;
-                `};
-        }
-
-        div:nth-of-type(2) {
-            transition: all 1s;
-            opacity: 0;
-            transform: translateY(100%);
-
-            ${(props) =>
-                props.animateList &&
-                css`
-                    animation: ${fadeVertically} 0.65s ease-out 0.1s 1 forwards;
-                `};
-        }
     }
 `;
 

@@ -1,10 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 
-const slideUp = keyframes`
-    0% {
-        transform: translateY(20rem);
-        opacity: 0;
-    }
+const fadeVertically = keyframes`
+    
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -19,19 +16,25 @@ export const Container = styled.footer`
     article {
         display: block;
 
-        /* width: max-content;
-        margin: 0 auto; */
-
         padding: 5rem 1rem;
 
         h3 {
+            transition: all 1s;
+            opacity: 0;
+            transform: translateY(100%);
+
+            ${(props) =>
+                props.animate &&
+                css`
+                    animation: ${fadeVertically} 0.7s ease-out 0.2s forwards;
+                `};
+
             font-size: 1.6rem;
+            font-family: Poppins;
             text-transform: uppercase;
             text-align: center;
             letter-spacing: 3.2px;
             color: #e7e6e6;
-
-            font-family: Poppins;
 
             span {
                 transition: all 0.5s;
@@ -68,11 +71,18 @@ export const SocialList = styled.ul`
     }
 
     li {
-        opacity: 1;
+        transition: all 1s;
+        opacity: 0;
+        transform: translateY(-100%);
+
+        ${(props) =>
+            props.animate &&
+            css`
+                animation: ${fadeVertically} 0.4s ease-in-out 0.1s forwards;
+            `};
+
         height: 2.9rem;
         width: 2.9rem;
-
-        /* animation: ${slideUp} 0.5s ease-in-out 0.3s forwards; */
 
         svg {
             transition: all 0.2s;

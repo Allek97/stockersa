@@ -10,8 +10,6 @@ const onScreenIntersection = (
 ) => {
     const [animateAppSection, setAnimateAppSection] = useState(false);
 
-    console.log(bounceDelay);
-
     function handleScroll() {
         if (ref.current) {
             const topPosition = ref.current.getBoundingClientRect().top;

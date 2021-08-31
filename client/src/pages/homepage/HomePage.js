@@ -66,15 +66,29 @@ const HomePage = () => {
     const app3dMockupView = onScreenIntersection(app3dMockRef, -100, false, 10);
     // Stocks section
     const stocksTextRef = useRef();
-    const stockListRef = useRef();
-
+    const stocksListRef = useRef();
     const stocksTextView = onScreenIntersection(stocksTextRef, -100, false, 10);
-    const stocksListView = onScreenIntersection(stockListRef, -50, true, 10);
-    // const stocksView = onScreenIntersection(stocksRef, -100, 10);
+    const stocksListView = onScreenIntersection(stocksListRef, -50, true, 10);
+    // Exchanges section
+    const exchangesTextRef = useRef();
+    const exchangesListRef = useRef();
+    const exchangesTextView = onScreenIntersection(
+        exchangesTextRef,
+        -100,
+        false,
+        10
+    );
+    const exchangesListView = onScreenIntersection(
+        exchangesListRef,
+        -50,
+        true,
+        10
+    );
 
     return (
         <>
             <Loading loadingTime={loadTime} />
+
             {isLoaded && (
                 <div className="homepage">
                     <HeroSection>
@@ -185,6 +199,7 @@ const HomePage = () => {
                     <StocksSection
                         animateText={stocksTextView}
                         animateList={stocksListView}
+                        isTabLand={isTabLand}
                     >
                         <div>
                             <div ref={stocksTextRef}>
@@ -200,22 +215,31 @@ const HomePage = () => {
                                     EURONEX, TSX, SEDAR, SEHK and more.
                                 </h3>
                             </div>
-                            <StocksList reference={stockListRef} />
+                            <StocksList reference={stocksListRef} />
                         </div>
                     </StocksSection>
 
-                    <ExchangesSection>
-                        <div className="exchanges-section__container">
-                            <h1>
-                                Covering <span>40+</span> Global Exchanges all
-                                over the world
-                            </h1>
-                            <h3>
-                                Track all the stocks exchanges around the globe.
-                                Get access to all the necessary informations
-                                about them with one click in our google map.
-                            </h3>
-                            <ExchangesSvg />
+                    <ExchangesSection
+                        animateText={exchangesTextView}
+                        animateList={exchangesListView}
+                        isTabLand={isTabLand}
+                    >
+                        <div>
+                            <div ref={exchangesTextRef}>
+                                <h1>
+                                    Covering <span>40+</span> Global Exchanges
+                                    all over the world
+                                </h1>
+                                <h3>
+                                    Track all the stocks exchanges around the
+                                    globe. Get access to all the necessary
+                                    informations about them with one click in
+                                    our google map.
+                                </h3>
+                            </div>
+                            <div ref={exchangesListRef}>
+                                <ExchangesSvg />
+                            </div>
                         </div>
                     </ExchangesSection>
 

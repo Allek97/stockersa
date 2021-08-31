@@ -226,6 +226,7 @@ export default function AssetKeyInfo(props) {
                                             color: "#4287e9",
                                         }}
                                         target="_blank"
+                                        rel="noopener noreferrer"
                                         href={`https://en.wikipedia.org/wiki/${assetInfo.companyName}`}
                                     >
                                         Wikipedia
@@ -240,6 +241,7 @@ export default function AssetKeyInfo(props) {
                             {teriaryAssetInfo("ceo") === "Valid" ? (
                                 <LinkInfo
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     href={`https://www.google.com/search?q=${assetInfo.ceo}&hl=en-GB`}
                                 >
                                     {assetInfo.ceo}
@@ -267,6 +269,7 @@ export default function AssetKeyInfo(props) {
                             teriaryAssetInfo("state") === "Valid" ? (
                                 <LinkInfo
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     href={`https://www.google.com/maps/place/${assetInfo.address},${assetInfo.city},${assetInfo.state},`}
                                 >
                                     {assetInfo.address}

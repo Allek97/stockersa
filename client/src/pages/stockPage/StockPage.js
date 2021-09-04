@@ -34,7 +34,7 @@ export default function StockPage() {
 
     return (
         <>
-            <Loading loadingTime={1500} />
+            <Loading loadingTime={800} />
             <div className="stockpage">
                 <header className="stockpage-header">
                     <a href="/">
@@ -50,7 +50,7 @@ export default function StockPage() {
                         </div>
                     </a>
                     <AssetSearch setTicker={setTicker} />
-                    <Btn href="/">Homepage</Btn>
+                    <Btn to="/">Homepage</Btn>
                 </header>
 
                 <main className="stockpage-main">

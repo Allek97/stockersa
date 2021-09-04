@@ -227,7 +227,7 @@ const HomePage = () => {
                         <div>
                             <div ref={exchangesTextRef}>
                                 <h1>
-                                    Covering <span>40+</span> Global Exchanges
+                                    Covering <span>65+</span> Global Exchanges
                                     all over the world
                                 </h1>
                                 <h3>

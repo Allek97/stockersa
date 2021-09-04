@@ -46,7 +46,7 @@ export default function AssetExpenses({
             return 350;
         }
 
-        return 400;
+        return 440;
     };
     const half = pieWidth() / 2;
 

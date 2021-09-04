@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const LogoName = styled.span`
     margin-left: 1.5rem;
@@ -28,7 +29,7 @@ export const AssetInfoStyle = styled.div`
     } //736px
 `;
 
-export const Btn = styled.a`
+export const Btn = styled(Link)`
     &,
     &:link,
     &:visited {

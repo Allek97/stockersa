@@ -109,6 +109,7 @@ export default function Loading({ loadingTime }) {
             clearTimeout(timeOut);
         };
     }, []);
+
     return (
         <>
             {isLoading && (

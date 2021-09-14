@@ -9,21 +9,19 @@ to {
     opacity: 1;
     transform: translateY(0);
 }
-
 `;
-const slideHorizontally = keyframes`
 
+const slideHorizontally = keyframes`
 to {
     transform: translateY(0);
 }
-
 `;
-const fadeVertically = keyframes`
+
+const fadeHorizontally = keyframes`
 to {
     opacity: 1;
     transform: translateX(0);
 }
-
 `;
 /////////////////////////////////////////////////
 //NOTE: HERO SECTION
@@ -57,7 +55,7 @@ export const HomeNavBar = styled.header`
     opacity: 0;
     transform: translateY(-150%);
 
-    animation: ${fadeVertically} 0.7s ease-out 0.1s 1 forwards;
+    animation: ${fadeHorizontally} 0.7s ease-out 0.1s 1 forwards;
 
     & > a:first-of-type {
         display: flex;
@@ -98,7 +96,7 @@ export const HeroArticle = styled.article`
             opacity: 0;
             transform: translateY(150%);
 
-            animation: ${fadeVertically} 0.7s ease-out 0.1s 1 forwards;
+            animation: ${fadeHorizontally} 0.7s ease-out 0.1s 1 forwards;
 
             margin-bottom: 2rem;
 
@@ -111,17 +109,17 @@ export const HeroArticle = styled.article`
         }
 
         h3 {
+            transition: all 1s;
+            opacity: 0;
+            transform: translateY(50%);
+
+            animation: ${fadeHorizontally} 0.7s ease-out 0.4s 1 forwards;
+
             margin-bottom: 2rem;
             font-size: 1.9rem;
             font-weight: 400;
             line-height: 3rem;
             color: white;
-
-            transition: all 1s;
-            opacity: 0;
-            transform: translateY(50%);
-
-            animation: ${fadeVertically} 0.7s ease-out 0.4s 1 forwards;
         }
     }
 
@@ -194,7 +192,7 @@ export const ResponsiveArticle = styled.article`
         ${(props) =>
             props.animateArticle &&
             css`
-                animation: ${fadeVertically} 0.6s ease-out 0.1s 1 forwards;
+                animation: ${fadeHorizontally} 0.6s ease-out 0.1s 1 forwards;
             `};
 
         max-width: 60rem;
@@ -253,7 +251,7 @@ const StockAndExchangeSection = styled.section`
             ${(props) =>
                 props.animateText &&
                 css`
-                    animation: ${fadeVertically} 0.6s ease-out 0.1s 1 forwards;
+                    animation: ${fadeHorizontally} 0.6s ease-out 0.1s 1 forwards;
                 `};
         }
 
@@ -265,7 +263,8 @@ const StockAndExchangeSection = styled.section`
             ${(props) =>
                 props.animateList &&
                 css`
-                    animation: ${fadeVertically} 0.65s ease-out 0.1s 1 forwards;
+                    animation: ${fadeHorizontally} 0.65s ease-out 0.1s 1
+                        forwards;
                 `};
         }
         h1 {

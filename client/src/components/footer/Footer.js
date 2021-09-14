@@ -19,7 +19,7 @@ export default function Footer() {
     };
 
     const footerRef = useRef();
-    const footerView = onScreenIntersection(footerRef, -50, false, 10);
+    const footerView = onScreenIntersection(footerRef, -20, false, 10);
     return (
         <Container ref={footerRef} animate={footerView}>
             <article>

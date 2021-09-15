@@ -34,7 +34,7 @@ export const StockPeriodBtn = styled.a`
 
         text-decoration: none;
         font-size: 1.4rem;
-        font-weight: 700;
+        font-family: RobotoBold;
         color: #fff;
         cursor: pointer;
     }

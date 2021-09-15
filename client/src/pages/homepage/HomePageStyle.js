@@ -101,7 +101,7 @@ export const HeroArticle = styled.article`
             margin-bottom: 2rem;
 
             font-size: 3.2rem;
-            font-weight: 600;
+            font-family: RobotoBold;
             letter-spacing: 1px;
             line-height: 4rem;
             text-transform: capitalize;
@@ -208,7 +208,7 @@ export const ResponsiveArticle = styled.article`
             margin-bottom: 2rem;
 
             font-size: 3.2rem;
-            font-weight: 600;
+            font-family: RobotoBold;
             letter-spacing: 1px;
             line-height: 4rem;
             text-transform: capitalize;
@@ -224,7 +224,7 @@ export const ResponsiveArticle = styled.article`
 
             span {
                 color: RGBA(var(--color-primary-light));
-                font-weight: 600;
+                font-family: RobotoBold;
             }
         }
     }
@@ -270,7 +270,7 @@ const StockAndExchangeSection = styled.section`
         h1 {
             margin-bottom: 3rem;
             font-size: 3.2rem;
-            font-weight: 600;
+            font-family: RobotoBold;
             letter-spacing: 1px;
             line-height: 4rem;
             text-transform: capitalize;
@@ -344,7 +344,7 @@ export const StockBtn = styled(Link)`
         text-decoration: none;
         text-align: center;
         font-family: inherit;
-        font-weight: 700;
+        font-family: RobotoBold;
         color: white;
         cursor: pointer;
     }
@@ -374,7 +374,7 @@ export const LogoName = styled.h1`
     -webkit-background-clip: text;
 
     font-size: 2.4rem;
-    /* font-weight: 600; */
+    /* font-family: RobotoBold; */
     font-family: PoppinsBold;
     color: transparent;
 `;
@@ -390,7 +390,7 @@ export const Tag = styled.span`
     filter: brightness(1.05);
 
     font-size: 1.4rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     text-align: center;
 
     color: #fff;

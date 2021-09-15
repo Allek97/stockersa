@@ -24,7 +24,7 @@ export const RateChange = styled.span`
         props.state === "increase" ? "#d9f0e0" : "#fce8e6"};
 
     font-size: 1.7rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     letter-spacing: 0.00625em;
     line-height: 2.4rem;
     color: ${(props) => (props.state === "increase" ? "#137333" : "#a50e0e")};
@@ -58,7 +58,7 @@ export const RawChange = styled.span`
 
     letter-spacing: 0.00625em;
     font-size: 1.7rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     line-height: 2.4rem;
     word-spacing: 1px;
     white-space: nowrap;
@@ -73,7 +73,7 @@ export const LastClose = styled.div`
     margin-bottom: 2px;
 
     font-size: 1.4rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     letter-spacing: 0.01785714em;
     line-height: 2rem;
 
@@ -98,7 +98,7 @@ export const StockSymbol = styled.div`
 
     color: white;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     letter-spacing: 0.01785714em;
     line-height: 2rem;
     white-space: nowrap;

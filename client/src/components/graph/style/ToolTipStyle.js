@@ -14,7 +14,7 @@ export const CustomToolTip = styled.div`
 
     /* text-align: center; */
     font-size: 1.6rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     color: #a7a7a7;
 `;
 

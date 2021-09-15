@@ -101,7 +101,7 @@ export const SiteWeb = styled.span`
 
     font-size: 1.4rem;
     letter-spacing: 0.025em;
-    font-weight: 600;
+    font-family: RobotoBold;
     line-height: 1.6rem;
     color: #a5a5b1;
 
@@ -163,7 +163,7 @@ export const StockSymbol = styled.div`
 
     color: white;
     font-size: 1.4rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     letter-spacing: 0.01785714em;
     line-height: 2rem;
 `;
@@ -211,7 +211,7 @@ export const NewsBtn = styled.a`
         text-decoration: none;
         white-space: nowrap;
         font-size: 1.5rem;
-        font-weight: 600;
+        font-family: RobotoBold;
         color: #1967d2;
         cursor: pointer;
     }

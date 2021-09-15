@@ -61,7 +61,7 @@ export const LinkInfo = styled.a`
         color: #1967d2;
         text-decoration: none;
         text-align: right;
-        font-weight: 600;
+        font-family: ${(props) => (props.wiki ? "Roboto" : "RobotoBold")};
     }
 
     &:hover {

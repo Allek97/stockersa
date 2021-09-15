@@ -7,13 +7,13 @@ export const LogoName = styled.span`
     /* background-image: linear-gradient(to right, #18acea, #cb3d8a, #084698);
      */
 
-    background-image: linear-gradient(to left, #18acea, #084698);
+    background-image: linear-gradient(to right, #18acea, #084698);
 
     background-clip: text;
     -webkit-background-clip: text;
 
     font-size: 2.4rem;
-    font-weight: 600;
+    font-family: PoppinsBold;
     color: transparent;
 `;
 
@@ -51,7 +51,7 @@ export const Btn = styled(Link)`
         text-decoration: none;
         text-align: center;
         font-family: inherit;
-        font-weight: 700;
+        font-family: PoppinsBold;
         color: white;
         cursor: pointer;
     }

@@ -1,6 +1,13 @@
 @font-face {
     font-family: "Roboto";
-    src: url(./Roboto-Regular.ttf) format("truetype");
+    src: local("Roboto"), url(./Roboto-Regular.ttf) format("truetype");
+    // font-weight: 600 !important;
+    font-style: normal;
+}
+@font-face {
+    font-family: "RobotoBold";
+    src: url(./Roboto-Bold.ttf) format("truetype");
+    font-weight: 600;
     font-style: normal;
 }
 @font-face {
@@ -10,7 +17,7 @@
 }
 @font-face {
     font-family: "PoppinsBold";
-    src: local("PoppinsBold"), url(./Poppins-Regular.ttf) format("truetype");
-    font-weight: 600 !important;
+    src: local("PoppinsBold"), url(./Poppins-Bold.ttf) format("truetype");
+    font-weight: 600;
     font-style: normal;
 }

@@ -51,7 +51,7 @@ export const InfoWindowStyle = styled.div`
     /* align-items: flex-end; */
 
     font-size: 1.55rem;
-    font-weight: 600;
+    font-family: RobotoBold;
 
     &:not(:last-child) {
         margin-bottom: 1.2rem;

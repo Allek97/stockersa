@@ -227,6 +227,7 @@ export default function AssetKeyInfo(props) {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         href={`https://en.wikipedia.org/wiki/${assetInfo.companyName}`}
+                                        wiki
                                     >
                                         Wikipedia
                                     </LinkInfo>

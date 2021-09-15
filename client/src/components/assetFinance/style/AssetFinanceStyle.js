@@ -55,7 +55,7 @@ export const CustomToolTip = styled.div`
 
     /* text-align: center; */
     font-size: 1.6rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     line-height: 3rem;
     color: #a7a7a7;
 `;
@@ -80,7 +80,7 @@ export const UtilBtn = styled.a`
 
         text-decoration: none;
         font-size: 1.5rem;
-        font-weight: 600;
+        font-family: RobotoBold;
         color: #1967d2;
         cursor: pointer;
     }
@@ -179,7 +179,7 @@ export const InfoRow = styled.div`
     border-top: 1px solid #43434d;
 
     font-size: 1.5rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     text-transform: capitalize;
 
     color: white;
@@ -219,7 +219,7 @@ export const RawValue = styled.span`
 
     text-align: right;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     line-height: 2rem;
     color: #fff;
 `;
@@ -300,7 +300,7 @@ export const RateChange = styled.span`
         props.state === "increase" ? "#d9f0e0" : "#fce8e6"}; */
 
     font-size: 1.5rem;
-    font-weight: 600;
+    font-family: RobotoBold;
     letter-spacing: 0.00625em;
     line-height: 2.4rem;
     color: ${(props) =>

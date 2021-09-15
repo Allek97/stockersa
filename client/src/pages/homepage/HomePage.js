@@ -99,7 +99,7 @@ const HomePage = () => {
                                         }}
                                     />
                                     {!isSmallPhone && (
-                                        <LogoName>Stockersa</LogoName>
+                                        <LogoName>stockersa</LogoName>
                                     )}
                                 </Link>
                                 <StockBtn to="/stocks">

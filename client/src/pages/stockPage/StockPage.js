@@ -46,7 +46,7 @@ export default function StockPage() {
                                 }}
                             />
 
-                            <LogoName>Stockersa</LogoName>
+                            <LogoName>stockersa</LogoName>
                         </div>
                     </a>
                     <AssetSearch setTicker={setTicker} />

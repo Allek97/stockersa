@@ -132,7 +132,7 @@ function StockExchangesSvg(props) {
                     <stop offset={1} stopColor="#70B7E5" />
                 </linearGradient>
             </defs>
-            <title>{"Layer 1"}</title>
+            <title>Layer 1</title>
             <path
                 className="prefix__st0"
                 d="M333.9 8.5v15.4h-7.6v-4h-7.6v16h-7.5v38.4h7.5v-3.5h7.6v8.6h7.6v6.2h11.5v4.7h7.6V46.4h11.5V15.2H353V22h-7.6V8.5h-11.5zm38.2 22.4v5h-7.6v34.9h7.6v-6.5h7.6V30.9h-7.6zM353 46.4v33.8h11.5V46.4H353z"
@@ -482,7 +482,7 @@ function StockExchangesSvg(props) {
                     fontWeight="bold"
                 >
                     <tspan x={664.212} y={129.221}>
-                        {"KRX"}
+                        "KRX"
                     </tspan>
                 </text>
             </g>
@@ -703,7 +703,7 @@ function StockExchangesSvg(props) {
                 fontWeight="bold"
             >
                 <tspan x={325.933} y={298.772}>
-                    {"SSE"}
+                    "SSE"
                 </tspan>
             </text>
             <g stroke="null">

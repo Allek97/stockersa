@@ -1,6 +1,6 @@
 // NOTE: Permet de detecter l'element dans le viewport avec un threshold (nb d'unites avant/apres detecter l'element)
 
-import { useState, useLayoutEffect, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const onScreenIntersection = (
     ref,

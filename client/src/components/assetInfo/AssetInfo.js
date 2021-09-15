@@ -83,8 +83,6 @@ export default function AssetInfo({
             try {
                 const res = await getAssetInfoFMP(ticker);
 
-                console.log(res);
-
                 const { data } = res;
 
                 if (!data[0]) {

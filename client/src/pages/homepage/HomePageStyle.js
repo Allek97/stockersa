@@ -11,11 +11,11 @@ to {
 }
 `;
 
-const slideHorizontally = keyframes`
-to {
-    transform: translateY(0);
-}
-`;
+// const slideHorizontally = keyframes`
+// to {
+//     transform: translateY(0);
+// }
+// `;
 
 const fadeHorizontally = keyframes`
 to {

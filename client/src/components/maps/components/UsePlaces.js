@@ -1,4 +1,4 @@
-import { MarkerClusterer } from "@react-google-maps/api";
+// import { MarkerClusterer } from "@react-google-maps/api";
 import React, { useEffect } from "react";
 
 import { getGeocode, getLatLng } from "use-places-autocomplete";
@@ -12,7 +12,7 @@ const UsePlaces = () => {
         let timeOut;
         async function geoCodeData() {
             try {
-                const geoData = markers;
+                // const geoData = markers;
 
                 markers.forEach(async (marker, index) => {
                     if (
@@ -26,8 +26,6 @@ const UsePlaces = () => {
 
                             const results = await getGeocode({ address });
 
-                            console.log(results);
-
                             const { lat, lng } = await getLatLng(results[0]);
 
                             // marker.lat = lat;
@@ -35,14 +33,12 @@ const UsePlaces = () => {
 
                             marker.address = results[0].formatted_address;
                             marker.coordinates = { lat, lng };
-
-                            console.log(marker);
                         }, index * 1000);
                     }
                 });
-                setTimeout(() => {
-                    console.log(JSON.stringify(markers));
-                }, 120000);
+                // setTimeout(() => {
+                //     console.log(JSON.stringify(markers));
+                // }, 120000);
             } catch (err) {
                 console.log("😱 Error: ", err);
             }

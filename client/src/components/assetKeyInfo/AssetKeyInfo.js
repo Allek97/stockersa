@@ -40,7 +40,6 @@ export default function AssetKeyInfo(props) {
 
                 const { status, data } = res;
 
-                console.log(data[0]);
                 if (status === 200) {
                     setAssetInfo(data[0]);
                     if (data[0].address) {
@@ -51,7 +50,7 @@ export default function AssetKeyInfo(props) {
                             ""
                         }
                         `;
-                        console.log(fullAddress);
+
                         setAssetAddress(fullAddress);
                     } else {
                         setAssetAddress(

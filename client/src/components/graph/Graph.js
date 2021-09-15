@@ -80,7 +80,6 @@ export default function Graph(props) {
                     "5min"
                 );
                 assetData = res.data;
-                console.log(res);
             } else if (dataPeriod === "1W") {
                 res = await getTimelyAssetPriceFMP(
                     ticker,

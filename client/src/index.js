@@ -2,14 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import App from "./App";
-import RobotoFont from "./assets/fonts/globalStyledFonts/RobotoGlobal";
-import PoppinsFont from "./assets/fonts/globalStyledFonts/PoppinsGlobal";
+// import RobotoFont from "./assets/fonts/globalStyledFonts/RobotoGlobal";
+// import PoppinsFont from "./assets/fonts/globalStyledFonts/PoppinsGlobal";
 import reportWebVitals from "./reportWebVitals";
+
+import "./assets/fonts/_global-fonts.scss";
 
 ReactDOM.render(
     <React.StrictMode>
-        <RobotoFont />
-        <PoppinsFont />
+        {/* <RobotoFont />
+        <PoppinsFont /> */}
         <App />
     </React.StrictMode>,
     document.getElementById("root")

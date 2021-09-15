@@ -374,8 +374,8 @@ export const LogoName = styled.h1`
     -webkit-background-clip: text;
 
     font-size: 2.4rem;
-    font-weight: 600;
-    font-family: Poppins;
+    /* font-weight: 600; */
+    font-family: PoppinsBold;
     color: transparent;
 `;
 

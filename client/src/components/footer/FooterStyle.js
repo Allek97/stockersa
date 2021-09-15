@@ -30,7 +30,7 @@ export const Container = styled.footer`
                 `};
 
             font-size: 1.6rem;
-            font-family: Poppins;
+            font-family: PoppinsBold;
             text-transform: uppercase;
             text-align: center;
             letter-spacing: 3.2px;

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useMediaQuery } from "react-responsive";
 
 import {
     ResponsiveContainer,
@@ -49,6 +50,7 @@ export default function Graph(props) {
     } = props;
 
     const [stockData, setStockData] = useState([]);
+    const isTabPort = useMediaQuery({ query: "(max-width: 56.25em)" });
 
     //NOTE:  Find a better way to do it
     const getLastTradingDate = async () => {
@@ -120,7 +122,7 @@ export default function Graph(props) {
         <>
             {isFMPApiConsumed && (
                 <>
-                    <div>
+                    <div style={isTabPort ? { marginLeft: "-3rem" } : null}>
                         <ResponsiveContainer width="100%" height={700}>
                             <AreaChart
                                 data={stockData}

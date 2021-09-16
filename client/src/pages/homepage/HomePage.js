@@ -230,8 +230,8 @@ const HomePage = () => {
                                 <h3>
                                     Track all the stocks exchanges around the
                                     globe. Get access to all the necessary
-                                    informations about them with one click in
-                                    our google map.
+                                    information about them with one click in our
+                                    google map.
                                 </h3>
                             </div>
                             <div ref={exchangesListRef}>

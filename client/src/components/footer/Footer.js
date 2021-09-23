@@ -25,27 +25,47 @@ export default function Footer() {
             <article>
                 <SocialList animate={footerView}>
                     <li>
-                        <SideLinkSvg href="/">
+                        <SideLinkSvg
+                            href="https://twitter.com/IAllekAmazigh"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaTwitterSquare style={socialSvgStyle} />
                         </SideLinkSvg>
                     </li>
                     <li>
-                        <SideLinkSvg href="/">
+                        <SideLinkSvg
+                            href="https://github.com/Allek97"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaGithubSquare style={socialSvgStyle} />
                         </SideLinkSvg>
                     </li>
                     <li>
-                        <SideLinkSvg href="/">
+                        <SideLinkSvg
+                            href="/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaFacebookSquare style={socialSvgStyle} />
                         </SideLinkSvg>
                     </li>
                     <li>
-                        <SideLinkSvg href="/">
+                        <SideLinkSvg
+                            href="/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <FaLinkedin style={socialSvgStyle} />
                         </SideLinkSvg>
                     </li>
                     <li>
-                        <SideLinkSvg href="/">
+                        <SideLinkSvg
+                            href="https://iliasallek.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <BsFillPersonLinesFill style={socialSvgStyle} />
                         </SideLinkSvg>
                     </li>

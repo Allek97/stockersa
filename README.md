@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://stockersa.netlify.app/" rel="noopener">
+  <a href="https://stockersa.netlify.app/" rel="noopener" target="_blank">
  <img src="https://personal-website-me.s3.amazonaws.com/stockersa-responsive.png" alt="Project thumbnail"></a>
 </p>
 <h3 align="center">Stockersa</h3>

@@ -22,27 +22,29 @@
 
 ## 🥳 About This Production <a name = "problem_statement"></a>
 
-I was tired always using create-react-app for my projects, I wanted to try a new stack without going too far from React. Gatsby seemed like the perfect choice for my static website, It's super performant/fast and reduces some complexities like routing and image performance.
+After learning how to build RESTful APIs with Explodii, I decided to create something exploiting third party APIs. I went for a stock market APIs. After trying multiple free APIs and trying to combine them to get the maximum of data with a decent request rate. I finally decided to redo everything and go with Financial Modeling Prep API I purchased their starter pack for absolute flexibility.
 
--   I've used Contentful which is headless CMS that allowed me to stores my images and most of the data related to the overview of my projects. GraphQL is used to communicate with Contentful and fetch the necessary data through queries.
+Charts were used to render the data from the API. I mainly used recharts react library and airbnb visx to build those charts. The features users can use in Stockersa :
 
--   I've used Figma to create/modify some images. For example, I've used it to add a frame with color gradients around project thumbnails. It was also used to animate the dashboard svg in the coding section of the homepage and implement the devices mockups images like below. The mockups are provided by Mockuuups Studio.
+-   Access real-time stock data, quotes(with price rate of change) and volumes up to 5 years back, with 7 different time periods.
+-   Get access to the latest news related to the searched stock or the global market in general.
+-   Get important daily key metrics like P/E Ratio, Earnings Per Share (Eps), market cap, average volume and more.
+-   Get an overview of the company/corporation of your interests.
+-   Get access to the yearly financial statements up to 5 years. Includes net income, gross profit, revenue, ebitda and more.
+-   Get also access to the yearly expense information up to 5 years. With metrics like cost of revenue, research and development expenses, general and administrative expenses, selling and marketing expenses and more.
+-   Get access to a Google map that tracks the company's headquarter and 65+ global exchanges all over the globe with key information.
+    Stockersa is fully responsive, please try it on all devices.
 
--   On the homepage, I implemented a 3d globe using three js libraries. I've used the examples and the documentation in [three-globe github library](https://github.com/vasturiano/three-globe) to design my earth globe. There is an option in homepage to disable the 3d globe if it's running slow in certain browsers.
--   There is a route for each of my projects where I explain more in depth about what I have done/learned building them and what technologies I've used.
-
-There is a contact section where you can download my Curriculum Vitae. You can also use the form to contact me. I would be happy to respond as fast as possible for an interview or any other opportunity.
-
-My personal website is fully responsive, you can use it in any device.
+Stockersa is fully responsive, please try it on all devices.
 
 ## ⛏️ Built With <a name = "tech_stack"></a>
 
--   [Gatsby](https://www.gatsbyjs.com/) - I used Gatsby to build user interfaces in this web application.
--   [SCSS/Styled-Components](https://styled-components.com/) - I mainly Styled-Components to design my personal website.
--   [GraphQL](https://graphql.org/) - I used GraphQL to access and manipulate my data according to my needs.
--   [Contentful](https://www.contentful.com/) - I used Contentful a headless CMS that allowed me to manage/store my content.
--   [Netlify](https://www.netlify.com/) - I deployed the gatsby app on Netlify.
+-   [React/Create React App](https://reactjs.org/) - I used Create React App to build user interfaces in this web application.
+-   [SCSS/Styled-Components](https://styled-components.com/) - I used SCSS with Block Element Modifier (BEM) notation and Styled-Components to design this web app.
+-   [Node.js/ Express.js](https://expressjs.com/) - I used Node.js/ Express.js to build a server that will consume the third party APIs calls.
+-   [Netlify](https://www.netlify.com/) - I deployed the react app on the Netlify cloud.
+-   [Heroku](https://www.heroku.com/) - I deployed the server on heroku.
 
 ## 🧐 For more details <a name = "tech_stack"></a>
 
-Please visit : https://iliasallek.com/personal-website/
+Please visit : https://iliasallek.com/stockersa/
